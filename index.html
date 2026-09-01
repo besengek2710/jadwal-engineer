@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="id">
 
 <head>
@@ -7,28 +8,50 @@
 
 <meta
 name="viewport"
-content="width=device-width, initial-scale=1.0">
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
 <title>Engineer Visit Management</title>
 
-
 <style>
+
+/* ==================================================
+   RESET
+================================================== */
 
 *{
     box-sizing:border-box;
     font-family:Arial,sans-serif;
 }
 
+html{
+    scroll-behavior:smooth;
+}
+
 body{
     margin:0;
     background:#f3f5f9;
     color:#222;
+    -webkit-tap-highlight-color:transparent;
 }
 
+
+/* ==================================================
+   HEADER
+================================================== */
+
 .header{
-    background:#1f2937;
+    background:linear-gradient(
+        135deg,
+        #1f2937,
+        #111827
+    );
+
     color:white;
-    padding:20px;
+
+    padding:22px 20px;
+
+    box-shadow:
+        0 3px 12px rgba(0,0,0,.15);
 }
 
 .header-content{
@@ -37,12 +60,19 @@ body{
 }
 
 .header h1{
-    margin:0 0 5px;
+    margin:0 0 6px;
+    font-size:26px;
 }
 
 .clock{
     color:#d1d5db;
+    font-size:14px;
 }
+
+
+/* ==================================================
+   CONTAINER
+================================================== */
 
 .container{
     max-width:1200px;
@@ -50,12 +80,28 @@ body{
     padding:0 15px;
 }
 
+
+/* ==================================================
+   SERVER STATUS
+================================================== */
+
 .status-box{
     background:white;
-    padding:15px;
-    border-radius:10px;
-    margin-bottom:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,.07);
+
+    padding:14px 16px;
+
+    border-radius:12px;
+
+    margin-bottom:18px;
+
+    box-shadow:
+        0 2px 8px rgba(0,0,0,.07);
+
+    display:flex;
+    align-items:center;
+    gap:6px;
+
+    flex-wrap:wrap;
 }
 
 .online{
@@ -73,27 +119,65 @@ body{
     font-weight:bold;
 }
 
+
+/* ==================================================
+   TABS
+================================================== */
+
 .tabs{
     display:flex;
-    gap:5px;
+
+    gap:8px;
+
     margin-bottom:20px;
+
     overflow-x:auto;
+
+    padding:3px;
+
+    scrollbar-width:none;
+}
+
+.tabs::-webkit-scrollbar{
+    display:none;
 }
 
 .tab{
-    padding:12px 20px;
+    padding:12px 18px;
+
     border:0;
+
     background:white;
-    border-radius:8px;
+
+    border-radius:10px;
+
     cursor:pointer;
+
     font-weight:bold;
+
     white-space:nowrap;
+
+    flex-shrink:0;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,.05);
+
+    transition:.2s;
+}
+
+.tab:active{
+    transform:scale(.97);
 }
 
 .tab.active{
     background:#2563eb;
     color:white;
 }
+
+
+/* ==================================================
+   SECTION
+================================================== */
 
 .section{
     display:none;
@@ -103,51 +187,96 @@ body{
     display:block;
 }
 
+
+/* ==================================================
+   CARD
+================================================== */
+
 .card{
     background:white;
+
     padding:20px;
-    border-radius:10px;
+
+    border-radius:14px;
+
     margin-bottom:20px;
-    box-shadow:0 2px 8px rgba(0,0,0,.07);
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.07);
 }
 
 .card h2{
     margin-top:0;
+
+    margin-bottom:18px;
+
+    font-size:20px;
 }
+
+
+/* ==================================================
+   DASHBOARD
+================================================== */
 
 .dashboard{
     display:grid;
-    grid-template-columns:repeat(4,1fr);
+
+    grid-template-columns:
+        repeat(4,1fr);
+
     gap:15px;
+
     margin-bottom:20px;
 }
 
 .stat{
     background:white;
+
     padding:20px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,.07);
+
+    border-radius:14px;
+
+    box-shadow:
+        0 2px 10px rgba(0,0,0,.07);
+
+    border:1px solid #eef0f4;
 }
 
 .stat-title{
     color:#6b7280;
+
     font-size:13px;
+
+    font-weight:bold;
 }
 
 .stat-number{
-    font-size:30px;
+    font-size:32px;
+
     font-weight:bold;
-    margin-top:5px;
+
+    margin-top:7px;
+
+    color:#111827;
 }
+
+
+/* ==================================================
+   FORM
+================================================== */
 
 .form-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:15px;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap:16px;
 }
 
 .form-group{
     display:flex;
+
     flex-direction:column;
 }
 
@@ -157,166 +286,782 @@ body{
 
 label{
     font-weight:bold;
-    margin-bottom:6px;
+
+    margin-bottom:7px;
+
+    font-size:14px;
 }
 
 input,
 select,
 textarea{
-    padding:11px;
+
+    padding:12px;
+
     border:1px solid #d1d5db;
-    border-radius:7px;
+
+    border-radius:9px;
+
     font-size:14px;
+
+    background:white;
+
+    outline:none;
+
+    width:100%;
+
+    transition:.2s;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37,99,235,.10);
 }
 
 textarea{
-    min-height:80px;
+    min-height:90px;
+
+    resize:vertical;
 }
+
+
+/* ==================================================
+   BUTTON
+================================================== */
 
 button{
     border:0;
-    border-radius:7px;
+
+    border-radius:9px;
+
     padding:11px 18px;
+
     cursor:pointer;
+
     font-weight:bold;
+
+    transition:.2s;
+}
+
+button:active{
+    transform:scale(.97);
 }
 
 button:disabled{
     opacity:.6;
+
     cursor:not-allowed;
 }
 
 .btn-primary{
     background:#2563eb;
+
     color:white;
 }
 
 .btn-success{
     background:#16a34a;
+
     color:white;
 }
 
 .btn-danger{
     background:#dc2626;
+
     color:white;
 }
 
 .btn-warning{
     background:#f59e0b;
+
     color:white;
 }
 
 .btn-refresh{
     background:#6b7280;
+
     color:white;
-    margin-left:10px;
+
+    margin-left:8px;
 }
 
 .btn-delete{
     background:#dc2626;
+
     color:white;
+
     padding:8px 12px;
+
     font-size:12px;
 }
 
+
+/* ==================================================
+   TABLE
+================================================== */
+
 .table-wrapper{
     overflow-x:auto;
+
+    width:100%;
 }
 
 table{
     width:100%;
+
     border-collapse:collapse;
+
+    min-width:650px;
 }
 
 th,
 td{
-    padding:11px;
-    border-bottom:1px solid #e5e7eb;
+    padding:12px;
+
+    border-bottom:
+        1px solid #e5e7eb;
+
     text-align:left;
+
     white-space:nowrap;
+
+    font-size:14px;
 }
 
 th{
     background:#f8fafc;
+
+    font-size:13px;
 }
+
+
+/* ==================================================
+   BADGE
+================================================== */
 
 .badge{
     display:inline-block;
+
     padding:5px 9px;
+
     border-radius:20px;
+
     font-size:12px;
+
     font-weight:bold;
 }
 
 .terjadwal{
     background:#dbeafe;
+
     color:#1e40af;
 }
 
 .berangkat{
     background:#fef3c7;
+
     color:#92400e;
 }
 
 .selesai{
     background:#dcfce7;
+
     color:#166534;
 }
 
 .batal{
     background:#fee2e2;
+
     color:#991b1b;
 }
 
 .hadir{
     background:#dcfce7;
+
     color:#166534;
 }
 
 .izin{
     background:#fef3c7;
+
     color:#92400e;
 }
 
 .sakit{
     background:#fee2e2;
+
     color:#991b1b;
 }
 
 .empty{
     text-align:center;
+
     color:#6b7280;
+
     padding:25px;
 }
 
+
+/* ==================================================
+   MOBILE CARD VIEW
+================================================== */
+
+.mobile-list{
+    display:none;
+}
+
+
+/* ==================================================
+   MOBILE
+================================================== */
+
 @media(max-width:800px){
 
+    body{
+        background:#f3f5f9;
+    }
+
+    .header{
+        padding:18px 15px;
+    }
+
+    .header h1{
+        font-size:21px;
+    }
+
+    .clock{
+        font-size:12px;
+    }
+
+    .container{
+        margin:15px auto;
+
+        padding:
+            0 10px;
+    }
+
+    .status-box{
+        padding:13px;
+
+        border-radius:11px;
+
+        font-size:13px;
+    }
+
+    .btn-refresh{
+        margin-left:auto;
+
+        padding:
+            9px 12px;
+    }
+
+    .tabs{
+        margin-bottom:15px;
+
+        gap:7px;
+
+        position:sticky;
+
+        top:0;
+
+        z-index:20;
+
+        background:#f3f5f9;
+
+        padding:
+            5px 0 9px;
+    }
+
+    .tab{
+        padding:
+            11px 14px;
+
+        font-size:13px;
+
+        border-radius:9px;
+    }
+
     .dashboard{
-        grid-template-columns:repeat(2,1fr);
+        grid-template-columns:
+            repeat(2,1fr);
+
+        gap:10px;
+    }
+
+    .stat{
+        padding:15px;
+
+        border-radius:12px;
+    }
+
+    .stat-title{
+        font-size:11px;
+    }
+
+    .stat-number{
+        font-size:27px;
+    }
+
+    .card{
+        padding:15px;
+
+        border-radius:12px;
+
+        margin-bottom:15px;
+    }
+
+    .card h2{
+        font-size:17px;
+
+        margin-bottom:15px;
     }
 
     .form-grid{
         grid-template-columns:1fr;
+
+        gap:13px;
     }
 
     .full{
         grid-column:auto;
     }
 
+    input,
+    select,
+    textarea{
+        font-size:16px;
+
+        padding:12px;
+    }
+
+    button{
+        min-height:44px;
+    }
+
+    .form-group.full button{
+        width:100%;
+    }
+
+    /* Hide normal tables */
+
+    .table-wrapper{
+        display:none;
+    }
+
+    /* Show mobile cards */
+
+    .mobile-list{
+        display:block;
+    }
+
 }
+
+
+/* ==================================================
+   SMALL MOBILE
+================================================== */
 
 @media(max-width:500px){
 
+    .header h1{
+        font-size:19px;
+    }
+
     .dashboard{
-        grid-template-columns:1fr 1fr;
+        gap:8px;
+    }
+
+    .stat{
+        padding:13px;
     }
 
     .stat-number{
-        font-size:24px;
+        font-size:25px;
     }
 
-    .header h1{
-        font-size:22px;
+    .container{
+        padding:0 8px;
+    }
+
+}
+
+
+/* ==================================================
+   MOBILE ITEM
+================================================== */
+
+.mobile-item{
+
+    background:#f8fafc;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    margin-bottom:10px;
+}
+
+.mobile-item:last-child{
+    margin-bottom:0;
+}
+
+.mobile-title{
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    color:#111827;
+
+    margin-bottom:8px;
+}
+
+.mobile-row{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    padding:6px 0;
+
+    border-bottom:
+        1px solid #edf0f3;
+
+    font-size:13px;
+}
+
+.mobile-row:last-child{
+    border-bottom:0;
+}
+
+.mobile-label{
+
+    color:#6b7280;
+
+    flex-shrink:0;
+}
+
+.mobile-value{
+
+    text-align:right;
+
+    font-weight:500;
+
+    word-break:break-word;
+}
+
+.mobile-actions{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:12px;
+}
+
+.mobile-actions button{
+
+    flex:1;
+
+    min-height:42px;
+}
+
+
+/* ==================================================
+   ENGINEER MOBILE
+================================================== */
+
+.engineer-mobile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+}
+
+.engineer-number{
+
+    width:34px;
+
+    height:34px;
+
+    border-radius:50%;
+
+    background:#2563eb;
+
+    color:white;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-weight:bold;
+
+    flex-shrink:0;
+}
+
+.engineer-info{
+
+    flex:1;
+
+    min-width:0;
+}
+
+.engineer-name{
+
+    font-weight:bold;
+
+    font-size:15px;
+
+    margin-bottom:3px;
+
+}
+
+.engineer-team{
+
+    color:#6b7280;
+
+    font-size:12px;
+
+}
+
+
+/* ==================================================
+   DASHBOARD MOBILE
+================================================== */
+
+.dashboard-visit-item{
+
+    border-left:
+        4px solid #2563eb;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:13px;
+
+    margin-bottom:10px;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,.05);
+}
+
+.dashboard-visit-top{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:10px;
+
+    align-items:center;
+
+    margin-bottom:8px;
+}
+
+.dashboard-engineer{
+
+    font-weight:bold;
+
+    font-size:15px;
+}
+
+.dashboard-customer{
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    margin-bottom:5px;
+}
+
+.dashboard-location{
+
+    font-size:12px;
+
+    color:#6b7280;
+}
+
+.dashboard-bottom{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:10px;
+
+    padding-top:9px;
+
+    border-top:
+        1px solid #edf0f3;
+}
+
+.dashboard-time{
+
+    font-weight:bold;
+
+    font-size:14px;
+}
+
+
+/* ==================================================
+   VISIT MOBILE
+================================================== */
+
+.visit-mobile-item{
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:12px;
+
+    padding:14px;
+
+    margin-bottom:10px;
+
+    box-shadow:
+        0 2px 6px rgba(0,0,0,.04);
+}
+
+.visit-mobile-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:10px;
+
+    margin-bottom:10px;
+}
+
+.visit-mobile-customer{
+
+    font-weight:bold;
+
+    font-size:16px;
+}
+
+.visit-mobile-date{
+
+    color:#6b7280;
+
+    font-size:12px;
+
+    margin-top:3px;
+}
+
+.visit-mobile-info{
+
+    display:grid;
+
+    gap:7px;
+
+    font-size:13px;
+}
+
+.visit-mobile-info div{
+
+    display:flex;
+
+    gap:8px;
+}
+
+.visit-icon{
+    width:20px;
+
+    flex-shrink:0;
+}
+
+.visit-mobile-actions{
+
+    display:flex;
+
+    gap:8px;
+
+    margin-top:12px;
+
+    padding-top:10px;
+
+    border-top:
+        1px solid #edf0f3;
+}
+
+.visit-mobile-actions button{
+
+    flex:1;
+
+    min-height:42px;
+}
+
+
+/* ==================================================
+   ABSENSI MOBILE
+================================================== */
+
+.absen-mobile-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:10px;
+
+    background:white;
+
+    border:1px solid #e5e7eb;
+
+    border-radius:11px;
+
+    padding:13px;
+
+    margin-bottom:9px;
+}
+
+.absen-name{
+
+    font-weight:bold;
+
+    font-size:14px;
+}
+
+.absen-meta{
+
+    color:#6b7280;
+
+    font-size:12px;
+
+    margin-top:4px;
+}
+
+
+/* ==================================================
+   DESKTOP MOBILE LIST HIDDEN
+================================================== */
+
+@media(min-width:801px){
+
+    .mobile-list{
+        display:none !important;
     }
 
 }
@@ -325,9 +1070,11 @@ th{
 
 </head>
 
-
 <body>
 
+<!-- ==================================================
+     HEADER
+================================================== -->
 
 <div class="header">
 
@@ -346,13 +1093,17 @@ id="clock">
 
 </div>
 
-
 <div class="container">
 
+<!-- ==================================================
+     SERVER STATUS
+================================================== -->
 
 <div class="status-box">
 
+<span>
 Status Server:
+</span>
 
 <span
 id="serverStatus"
@@ -361,7 +1112,6 @@ class="loading">
 Menghubungkan...
 
 </span>
-
 
 <button
 class="btn-refresh"
@@ -373,9 +1123,11 @@ onclick="loadData()">
 
 </div>
 
+<!-- ==================================================
+     TABS
+================================================== -->
 
 <div class="tabs">
-
 
 <button
 class="tab active"
@@ -385,7 +1137,6 @@ onclick="showSection('dashboard',this)">
 
 </button>
 
-
 <button
 class="tab"
 onclick="showSection('jadwal',this)">
@@ -393,7 +1144,6 @@ onclick="showSection('jadwal',this)">
 📅 Jadwal Visit
 
 </button>
-
 
 <button
 class="tab"
@@ -403,7 +1153,6 @@ onclick="showSection('absensi',this)">
 
 </button>
 
-
 <button
 class="tab"
 onclick="showSection('engineer',this)">
@@ -412,9 +1161,7 @@ onclick="showSection('engineer',this)">
 
 </button>
 
-
 </div>
-
 
 <!-- ==================================================
      DASHBOARD
@@ -424,9 +1171,7 @@ onclick="showSection('engineer',this)">
 id="dashboard"
 class="section active">
 
-
 <div class="dashboard">
-
 
 <div class="stat">
 
@@ -437,13 +1182,10 @@ Total Engineer
 <div
 class="stat-number"
 id="totalEngineer">
-
 0
-
 </div>
 
 </div>
-
 
 <div class="stat">
 
@@ -454,13 +1196,10 @@ Visit Hari Ini
 <div
 class="stat-number"
 id="visitHariIni">
-
 0
-
 </div>
 
 </div>
-
 
 <div class="stat">
 
@@ -471,13 +1210,10 @@ Visit Selesai
 <div
 class="stat-number"
 id="visitSelesai">
-
 0
-
 </div>
 
 </div>
-
 
 <div class="stat">
 
@@ -488,23 +1224,18 @@ Absensi Hari Ini
 <div
 class="stat-number"
 id="absenHariIni">
-
 0
-
 </div>
 
 </div>
 
-
 </div>
-
 
 <div class="card">
 
 <h2>
 📅 Visit Hari Ini
 </h2>
-
 
 <div class="table-wrapper">
 
@@ -515,29 +1246,35 @@ id="absenHariIni">
 <tr>
 
 <th>Engineer</th>
+
 <th>Customer</th>
+
 <th>Lokasi</th>
+
 <th>Jam</th>
+
 <th>Status</th>
 
 </tr>
 
 </thead>
 
-
 <tbody
 id="dashboardVisit">
 </tbody>
-
 
 </table>
 
 </div>
 
+<div
+id="dashboardVisitMobile"
+class="mobile-list">
 </div>
 
 </div>
 
+</div>
 
 <!-- ==================================================
      JADWAL
@@ -547,16 +1284,13 @@ id="dashboardVisit">
 id="jadwal"
 class="section">
 
-
 <div class="card">
 
 <h2>
 ➕ Tambah Jadwal Visit
 </h2>
 
-
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -569,7 +1303,6 @@ type="date"
 id="visitTanggal">
 
 </div>
-
 
 <div class="form-group">
 
@@ -588,7 +1321,6 @@ id="visitEngineer">
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -600,7 +1332,6 @@ type="time"
 id="visitJam">
 
 </div>
-
 
 <div class="form-group">
 
@@ -615,7 +1346,6 @@ placeholder="PT ABC">
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -628,7 +1358,6 @@ id="visitLokasi"
 placeholder="Surabaya">
 
 </div>
-
 
 <div class="form-group">
 
@@ -659,7 +1388,6 @@ Batal
 
 </div>
 
-
 <div class="form-group full">
 
 <label>
@@ -668,11 +1396,9 @@ Keperluan
 
 <textarea
 id="visitKeperluan"
-placeholder="Troubleshooting PLC">
-</textarea>
+placeholder="Troubleshooting PLC"></textarea>
 
 </div>
-
 
 <div class="form-group full">
 
@@ -686,18 +1412,15 @@ onclick="tambahVisit()">
 
 </div>
 
-
 </div>
 
 </div>
-
 
 <div class="card">
 
 <h2>
 📋 Daftar Visit
 </h2>
-
 
 <div class="table-wrapper">
 
@@ -708,32 +1431,41 @@ onclick="tambahVisit()">
 <tr>
 
 <th>Tanggal</th>
+
 <th>Jam</th>
+
 <th>Engineer</th>
+
 <th>Customer</th>
+
 <th>Lokasi</th>
+
 <th>Keperluan</th>
+
 <th>Status</th>
+
 <th>Aksi</th>
 
 </tr>
 
 </thead>
 
-
 <tbody
 id="tabelVisit">
 </tbody>
-
 
 </table>
 
 </div>
 
+<div
+id="tabelVisitMobile"
+class="mobile-list">
 </div>
 
 </div>
 
+</div>
 
 <!-- ==================================================
      ABSENSI
@@ -743,16 +1475,13 @@ id="tabelVisit">
 id="absensi"
 class="section">
 
-
 <div class="card">
 
 <h2>
 🕐 Absensi Engineer
 </h2>
 
-
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -770,7 +1499,6 @@ id="absenEngineer">
 </select>
 
 </div>
-
 
 <div class="form-group">
 
@@ -797,7 +1525,6 @@ Sakit
 
 </div>
 
-
 <div class="form-group full">
 
 <button
@@ -810,18 +1537,15 @@ onclick="absen()">
 
 </div>
 
-
 </div>
 
 </div>
-
 
 <div class="card">
 
 <h2>
 📋 Riwayat Absensi
 </h2>
-
 
 <div class="table-wrapper">
 
@@ -832,28 +1556,33 @@ onclick="absen()">
 <tr>
 
 <th>Tanggal</th>
+
 <th>Jam</th>
+
 <th>Engineer</th>
+
 <th>Status</th>
 
 </tr>
 
 </thead>
 
-
 <tbody
 id="tabelAbsensi">
 </tbody>
-
 
 </table>
 
 </div>
 
+<div
+id="tabelAbsensiMobile"
+class="mobile-list">
 </div>
 
 </div>
 
+</div>
 
 <!-- ==================================================
      ENGINEER
@@ -863,21 +1592,17 @@ id="tabelAbsensi">
 id="engineer"
 class="section">
 
-
 <div class="card">
 
 <h2>
 ➕ Tambah Engineer
 </h2>
 
-
 <p>
 Maksimal <b>15 engineer</b>.
 </p>
 
-
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -891,7 +1616,6 @@ placeholder="Nama engineer">
 
 </div>
 
-
 <div class="form-group">
 
 <label>
@@ -903,7 +1627,6 @@ id="teamEngineer"
 placeholder="Automation">
 
 </div>
-
 
 <div class="form-group full">
 
@@ -917,18 +1640,15 @@ onclick="tambahEngineer()">
 
 </div>
 
-
 </div>
 
 </div>
-
 
 <div class="card">
 
 <h2>
 👨‍🔧 Daftar Engineer
 </h2>
-
 
 <div class="table-wrapper">
 
@@ -939,31 +1659,35 @@ onclick="tambahEngineer()">
 <tr>
 
 <th>No</th>
+
 <th>Nama</th>
+
 <th>Team</th>
+
 <th>Aksi</th>
 
 </tr>
 
 </thead>
 
-
 <tbody
 id="tabelEngineer">
 </tbody>
-
 
 </table>
 
 </div>
 
+<div
+id="tabelEngineerMobile"
+class="mobile-list">
 </div>
 
 </div>
 
-
 </div>
 
+</div>
 
 <script>
 
@@ -994,7 +1718,6 @@ function updateClock(){
     const now =
         new Date();
 
-
     const tanggal =
         now.toLocaleDateString(
             "id-ID",
@@ -1006,12 +1729,10 @@ function updateClock(){
             }
         );
 
-
     const jam =
         now.toLocaleTimeString(
             "id-ID"
         );
-
 
     document
     .getElementById("clock")
@@ -1019,15 +1740,12 @@ function updateClock(){
         tanggal +
         " | " +
         jam;
-
 }
-
 
 setInterval(
     updateClock,
     1000
 );
-
 
 updateClock();
 
@@ -1051,13 +1769,11 @@ function showSection(
 
     });
 
-
     document
     .getElementById(id)
     .classList.add(
         "active"
     );
-
 
     document
     .querySelectorAll(".tab")
@@ -1068,7 +1784,6 @@ function showSection(
         );
 
     });
-
 
     button.classList.add(
         "active"
@@ -1089,9 +1804,7 @@ function loadData(){
 
     }
 
-
     loadingData = true;
-
 
     const status =
         document
@@ -1099,10 +1812,8 @@ function loadData(){
             "serverStatus"
         );
 
-
     status.innerText =
         "Menghubungkan...";
-
 
     status.className =
         "loading";
@@ -1135,7 +1846,6 @@ function loadData(){
 
             }
 
-
             selesai = true;
 
             loadingData = false;
@@ -1143,7 +1853,6 @@ function loadData(){
 
             status.innerText =
                 "Gagal terhubung";
-
 
             status.className =
                 "offline";
@@ -1173,12 +1882,9 @@ function loadData(){
 
             }
 
-
             selesai = true;
 
-
             clearTimeout(timer);
-
 
             loadingData = false;
 
@@ -1196,7 +1902,6 @@ function loadData(){
 
                 status.innerText =
                     "Server Error";
-
 
                 status.className =
                     "offline";
@@ -1254,7 +1959,6 @@ function loadData(){
             status.innerText =
                 "ONLINE";
 
-
             status.className =
                 "online";
 
@@ -1281,19 +1985,15 @@ function loadData(){
 
             }
 
-
             selesai = true;
 
-
             clearTimeout(timer);
-
 
             loadingData = false;
 
 
             status.innerText =
                 "Gagal terhubung";
-
 
             status.className =
                 "offline";
@@ -1364,7 +2064,6 @@ function sendData(data){
 
                         }
 
-
                         selesai = true;
 
 
@@ -1396,7 +2095,6 @@ function sendData(data){
                         return;
 
                     }
-
 
                     selesai = true;
 
@@ -2006,7 +2704,16 @@ function renderEngineer(){
         );
 
 
+    const mobile =
+        document
+        .getElementById(
+            "tabelEngineerMobile"
+        );
+
+
     table.innerHTML = "";
+
+    mobile.innerHTML = "";
 
 
     if(
@@ -2027,6 +2734,16 @@ function renderEngineer(){
 
             </tr>`;
 
+
+        mobile.innerHTML =
+
+            `<div class="mobile-item empty">
+
+                Belum ada engineer
+
+            </div>`;
+
+
         return;
 
     }
@@ -2034,6 +2751,8 @@ function renderEngineer(){
 
     engineers.forEach(
         function(e,index){
+
+            /* DESKTOP */
 
             table.innerHTML +=
 
@@ -2070,6 +2789,59 @@ function renderEngineer(){
 
                 </tr>`;
 
+
+            /* MOBILE */
+
+            mobile.innerHTML +=
+
+                `<div class="mobile-item">
+
+                    <div class="engineer-mobile">
+
+                        <div class="engineer-number">
+
+                            ${index + 1}
+
+                        </div>
+
+
+                        <div class="engineer-info">
+
+                            <div class="engineer-name">
+
+                                ${escapeHTML(
+                                    e.nama
+                                )}
+
+                            </div>
+
+
+                            <div class="engineer-team">
+
+                                👥 ${escapeHTML(
+                                    e.team || "-"
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            class="btn-delete"
+                            onclick="hapusEngineer(
+                                '${escapeHTML(e.id)}',
+                                '${escapeHTML(e.nama)}'
+                            )">
+
+                            🗑️
+
+                        </button>
+
+                    </div>
+
+                </div>`;
+
         }
     );
 
@@ -2089,7 +2861,16 @@ function renderVisit(){
         );
 
 
+    const mobile =
+        document
+        .getElementById(
+            "tabelVisitMobile"
+        );
+
+
     table.innerHTML = "";
+
+    mobile.innerHTML = "";
 
 
     if(
@@ -2109,6 +2890,16 @@ function renderVisit(){
                 </td>
 
             </tr>`;
+
+
+        mobile.innerHTML =
+
+            `<div class="mobile-item empty">
+
+                Belum ada jadwal visit
+
+            </div>`;
+
 
         return;
 
@@ -2163,7 +2954,7 @@ function renderVisit(){
                             'Selesai'
                         )">
 
-                        Selesai
+                        ✓ Selesai
 
                     </button>`;
 
@@ -2172,10 +2963,20 @@ function renderVisit(){
             else{
 
                 tombolStatus =
-                    "✓";
+                    `<button
+                        class="btn-success"
+                        disabled>
+
+                        ✓ Selesai
+
+                    </button>`;
 
             }
 
+
+            /* ==================================================
+               DESKTOP
+            ================================================== */
 
             table.innerHTML +=
 
@@ -2261,7 +3062,9 @@ function renderVisit(){
 
                                 onclick="hapusVisit(
                                     '${escapeHTML(v.id)}',
-                                    '${escapeHTML(v.customer || "")}'
+                                    '${escapeHTML(
+                                        v.customer || ""
+                                    )}'
                                 )">
 
                                 🗑️
@@ -2273,6 +3076,127 @@ function renderVisit(){
                     </td>
 
                 </tr>`;
+
+
+            /* ==================================================
+               MOBILE
+            ================================================== */
+
+            mobile.innerHTML +=
+
+                `<div class="visit-mobile-item">
+
+
+                    <div class="visit-mobile-header">
+
+                        <div>
+
+                            <div class="visit-mobile-customer">
+
+                                ${escapeHTML(
+                                    v.customer || "-"
+                                )}
+
+                            </div>
+
+
+                            <div class="visit-mobile-date">
+
+                                📅 ${formatTanggal(
+                                    v.tanggal
+                                )}
+
+                                &nbsp;&nbsp;
+
+                                ⏰ ${formatJam(
+                                    v.jam
+                                )}
+
+                            </div>
+
+                        </div>
+
+
+                        ${badge(status)}
+
+                    </div>
+
+
+                    <div class="visit-mobile-info">
+
+
+                        <div>
+
+                            <span class="visit-icon">
+                                👨‍🔧
+                            </span>
+
+                            <span>
+                                ${escapeHTML(
+                                    v.engineer || "-"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="visit-icon">
+                                📍
+                            </span>
+
+                            <span>
+                                ${escapeHTML(
+                                    v.lokasi || "-"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="visit-icon">
+                                🔧
+                            </span>
+
+                            <span>
+                                ${escapeHTML(
+                                    v.keperluan || "-"
+                                )}
+                            </span>
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div class="visit-mobile-actions">
+
+                        ${tombolStatus}
+
+
+                        <button
+
+                            class="btn-delete"
+
+                            onclick="hapusVisit(
+                                '${escapeHTML(v.id)}',
+                                '${escapeHTML(
+                                    v.customer || ""
+                                )}'
+                            )">
+
+                            🗑️ Hapus
+
+                        </button>
+
+                    </div>
+
+
+                </div>`;
 
         }
     );
@@ -2293,7 +3217,16 @@ function renderAbsensi(){
         );
 
 
+    const mobile =
+        document
+        .getElementById(
+            "tabelAbsensiMobile"
+        );
+
+
     table.innerHTML = "";
+
+    mobile.innerHTML = "";
 
 
     if(
@@ -2314,6 +3247,16 @@ function renderAbsensi(){
 
             </tr>`;
 
+
+        mobile.innerHTML =
+
+            `<div class="mobile-item empty">
+
+                Belum ada data absensi
+
+            </div>`;
+
+
         return;
 
     }
@@ -2324,6 +3267,8 @@ function renderAbsensi(){
     .reverse()
     .forEach(
         function(a){
+
+            /* DESKTOP */
 
             table.innerHTML +=
 
@@ -2365,6 +3310,47 @@ function renderAbsensi(){
                     </td>
 
                 </tr>`;
+
+
+            /* MOBILE */
+
+            mobile.innerHTML +=
+
+                `<div class="absen-mobile-item">
+
+                    <div>
+
+                        <div class="absen-name">
+
+                            ${escapeHTML(
+                                a.engineer || "-"
+                            )}
+
+                        </div>
+
+
+                        <div class="absen-meta">
+
+                            📅 ${formatTanggal(
+                                a.tanggal
+                            )}
+
+                            &nbsp;
+
+                            ⏰ ${formatJam(
+                                a.jam
+                            )}
+
+                        </div>
+
+                    </div>
+
+
+                    ${badge(
+                        a.status
+                    )}
+
+                </div>`;
 
         }
     );
@@ -2453,13 +3439,20 @@ function renderDashboard(){
 
 
     const table =
-        document
-        .getElementById(
+        document.getElementById(
             "dashboardVisit"
         );
 
 
+    const mobile =
+        document.getElementById(
+            "dashboardVisitMobile"
+        );
+
+
     table.innerHTML = "";
+
+    mobile.innerHTML = "";
 
 
     if(
@@ -2480,6 +3473,16 @@ function renderDashboard(){
 
             </tr>`;
 
+
+        mobile.innerHTML =
+
+            `<div class="mobile-item empty">
+
+                📅 Tidak ada visit hari ini
+
+            </div>`;
+
+
         return;
 
     }
@@ -2487,6 +3490,8 @@ function renderDashboard(){
 
     todayVisit.forEach(
         function(v){
+
+            /* DESKTOP */
 
             table.innerHTML +=
 
@@ -2537,6 +3542,72 @@ function renderDashboard(){
                     </td>
 
                 </tr>`;
+
+
+            /* MOBILE */
+
+            mobile.innerHTML +=
+
+                `<div class="dashboard-visit-item">
+
+
+                    <div class="dashboard-visit-top">
+
+                        <div class="dashboard-engineer">
+
+                            👨‍🔧 ${escapeHTML(
+                                v.engineer || "-"
+                            )}
+
+                        </div>
+
+
+                        ${badge(
+                            v.status
+                        )}
+
+                    </div>
+
+
+                    <div class="dashboard-customer">
+
+                        ${escapeHTML(
+                            v.customer || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="dashboard-location">
+
+                        📍 ${escapeHTML(
+                            v.lokasi || "-"
+                        )}
+
+                    </div>
+
+
+                    <div class="dashboard-bottom">
+
+                        <span class="dashboard-time">
+
+                            ⏰ ${formatJam(
+                                v.jam
+                            )}
+
+                        </span>
+
+
+                        <span>
+
+                            Visit
+
+                        </span>
+
+                    </div>
+
+
+                </div>`;
 
         }
     );
@@ -2858,6 +3929,7 @@ function getLocalDate(){
     return (
 
         d.getFullYear() +
+
         "-" +
 
         String(
@@ -2962,7 +4034,6 @@ loadData();
 
 
 </script>
-
 
 </body>
 
