@@ -1,8 +1,7 @@
-```html
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -192,11 +191,6 @@ button:disabled{
     color:white;
 }
 
-.btn-danger{
-    background:#dc2626;
-    color:white;
-}
-
 .btn-warning{
     background:#f59e0b;
     color:white;
@@ -291,7 +285,6 @@ th{
     .full{
         grid-column:auto;
     }
-
 }
 
 @media(max-width:500px){
@@ -311,11 +304,9 @@ th{
 }
 
 </style>
-
 </head>
 
 <body>
-
 
 <div class="header">
 
@@ -331,7 +322,6 @@ th{
 
 
 <div class="container">
-
 
 <div class="status-box">
 
@@ -357,105 +347,54 @@ onclick="loadData()">
 <button
 class="tab active"
 onclick="showSection('dashboard',this)">
-
 📊 Dashboard
-
 </button>
-
 
 <button
 class="tab"
 onclick="showSection('jadwal',this)">
-
 📅 Jadwal Visit
-
 </button>
-
 
 <button
 class="tab"
 onclick="showSection('absensi',this)">
-
 🕐 Absensi
-
 </button>
-
 
 <button
 class="tab"
 onclick="showSection('engineer',this)">
-
 👨‍🔧 Engineer
-
 </button>
 
 </div>
 
 
-
-<!-- DASHBOARD -->
+<!-- ================= DASHBOARD ================= -->
 
 <div id="dashboard" class="section active">
 
 <div class="dashboard">
 
 <div class="stat">
-
-<div class="stat-title">
-Total Engineer
+<div class="stat-title">Total Engineer</div>
+<div class="stat-number" id="totalEngineer">0</div>
 </div>
-
-<div
-class="stat-number"
-id="totalEngineer">
-0
-</div>
-
-</div>
-
 
 <div class="stat">
-
-<div class="stat-title">
-Visit Hari Ini
+<div class="stat-title">Visit Hari Ini</div>
+<div class="stat-number" id="visitHariIni">0</div>
 </div>
-
-<div
-class="stat-number"
-id="visitHariIni">
-0
-</div>
-
-</div>
-
 
 <div class="stat">
-
-<div class="stat-title">
-Visit Selesai
+<div class="stat-title">Visit Selesai</div>
+<div class="stat-number" id="visitSelesai">0</div>
 </div>
-
-<div
-class="stat-number"
-id="visitSelesai">
-0
-</div>
-
-</div>
-
 
 <div class="stat">
-
-<div class="stat-title">
-Absensi Hari Ini
-</div>
-
-<div
-class="stat-number"
-id="absenHariIni">
-0
-</div>
-
+<div class="stat-title">Absensi Hari Ini</div>
+<div class="stat-number" id="absenHariIni">0</div>
 </div>
 
 </div>
@@ -470,22 +409,16 @@ id="absenHariIni">
 <table>
 
 <thead>
-
 <tr>
-
 <th>Engineer</th>
 <th>Customer</th>
 <th>Lokasi</th>
 <th>Jam</th>
 <th>Status</th>
-
 </tr>
-
 </thead>
 
-<tbody id="dashboardVisit">
-
-</tbody>
+<tbody id="dashboardVisit"></tbody>
 
 </table>
 
@@ -496,8 +429,7 @@ id="absenHariIni">
 </div>
 
 
-
-<!-- JADWAL -->
+<!-- ================= JADWAL ================= -->
 
 <div id="jadwal" class="section">
 
@@ -506,7 +438,6 @@ id="absenHariIni">
 <h2>➕ Tambah Jadwal Visit</h2>
 
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -591,8 +522,7 @@ placeholder="Surabaya">
 
 <textarea
 id="visitKeperluan"
-placeholder="Troubleshooting PLC">
-</textarea>
+placeholder="Troubleshooting PLC"></textarea>
 
 </div>
 
@@ -615,7 +545,6 @@ onclick="tambahVisit()">
 </div>
 
 
-
 <div class="card">
 
 <h2>📋 Daftar Visit</h2>
@@ -627,7 +556,6 @@ onclick="tambahVisit()">
 <thead>
 
 <tr>
-
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Engineer</th>
@@ -636,14 +564,11 @@ onclick="tambahVisit()">
 <th>Keperluan</th>
 <th>Status</th>
 <th>Aksi</th>
-
 </tr>
 
 </thead>
 
-<tbody id="tabelVisit">
-
-</tbody>
+<tbody id="tabelVisit"></tbody>
 
 </table>
 
@@ -654,8 +579,7 @@ onclick="tambahVisit()">
 </div>
 
 
-
-<!-- ABSENSI -->
+<!-- ================= ABSENSI ================= -->
 
 <div id="absensi" class="section">
 
@@ -664,7 +588,6 @@ onclick="tambahVisit()">
 <h2>🕐 Absensi Engineer</h2>
 
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -713,7 +636,6 @@ onclick="absen()">
 </div>
 
 
-
 <div class="card">
 
 <h2>📋 Riwayat Absensi</h2>
@@ -725,19 +647,15 @@ onclick="absen()">
 <thead>
 
 <tr>
-
 <th>Tanggal</th>
 <th>Jam</th>
 <th>Engineer</th>
 <th>Status</th>
-
 </tr>
 
 </thead>
 
-<tbody id="tabelAbsensi">
-
-</tbody>
+<tbody id="tabelAbsensi"></tbody>
 
 </table>
 
@@ -748,8 +666,7 @@ onclick="absen()">
 </div>
 
 
-
-<!-- ENGINEER -->
+<!-- ================= ENGINEER ================= -->
 
 <div id="engineer" class="section">
 
@@ -758,13 +675,10 @@ onclick="absen()">
 <h2>➕ Tambah Engineer</h2>
 
 <p>
-
 Maksimal <b>15 engineer</b>.
-
 </p>
 
 <div class="form-grid">
-
 
 <div class="form-group">
 
@@ -805,7 +719,6 @@ onclick="tambahEngineer()">
 </div>
 
 
-
 <div class="card">
 
 <h2>👨‍🔧 Daftar Engineer</h2>
@@ -817,18 +730,14 @@ onclick="tambahEngineer()">
 <thead>
 
 <tr>
-
 <th>No</th>
 <th>Nama</th>
 <th>Team</th>
-
 </tr>
 
 </thead>
 
-<tbody id="tabelEngineer">
-
-</tbody>
+<tbody id="tabelEngineer"></tbody>
 
 </table>
 
@@ -838,16 +747,13 @@ onclick="tambahEngineer()">
 
 </div>
 
-
 </div>
-
 
 
 <script>
 
-
 /* ==================================================
-   GOOGLE APPS SCRIPT
+   GOOGLE APPS SCRIPT API
 ================================================== */
 
 const API_URL =
@@ -858,232 +764,8 @@ let engineers = [];
 let visits = [];
 let absensi = [];
 
+let loadingData = false;
 
-// ======================================================
-// LOAD DATA
-// ======================================================
-
-function loadData() {
-
-    const status =
-        document.getElementById("serverStatus");
-
-    status.innerText =
-        "Menghubungkan...";
-
-
-    const callback =
-        "apiCallback_" + Date.now();
-
-
-    window[callback] =
-        function(data) {
-
-            console.log(
-                "DATA SERVER:",
-                data
-            );
-
-
-            if (!data) {
-
-                status.innerText =
-                    "Gagal terhubung";
-
-                status.className =
-                    "offline";
-
-                return;
-            }
-
-
-            engineers =
-                data.engineers || [];
-
-
-            visits =
-                data.visits || [];
-
-
-            absensi =
-                data.absensi || [];
-
-
-            status.innerText =
-                "ONLINE";
-
-            status.className =
-                "online";
-
-
-            renderAll();
-
-
-            delete window[callback];
-
-            script.remove();
-
-        };
-
-
-    const script =
-        document.createElement("script");
-
-
-    script.src =
-        API_URL +
-        "?callback=" +
-        callback +
-        "&t=" +
-        Date.now();
-
-
-    script.onerror =
-        function() {
-
-            console.error(
-                "Apps Script tidak dapat diakses."
-            );
-
-
-            status.innerText =
-                "Gagal terhubung";
-
-
-            status.className =
-                "offline";
-
-
-            delete window[callback];
-
-            script.remove();
-
-        };
-
-
-    document.body.appendChild(script);
-}
-
-
-// ======================================================
-// KIRIM DATA
-// ======================================================
-
-function sendData(data) {
-
-    return new Promise(function(resolve) {
-
-        const callback =
-            "apiCallback_" + Date.now();
-
-
-        window[callback] =
-            function(result) {
-
-                console.log(
-                    "RESPON SERVER:",
-                    result
-                );
-
-
-                delete window[callback];
-
-                script.remove();
-
-
-                if (
-                    result &&
-                    result.success
-                ) {
-
-                    alert(
-                        result.message ||
-                        "Berhasil"
-                    );
-
-
-                    setTimeout(
-                        loadData,
-                        300
-                    );
-
-
-                    resolve(true);
-
-                } else {
-
-                    alert(
-                        result.message ||
-                        "Gagal menyimpan"
-                    );
-
-
-                    resolve(false);
-                }
-
-            };
-
-
-        const params =
-            new URLSearchParams();
-
-
-        Object.keys(data)
-            .forEach(function(key) {
-
-                params.append(
-                    key,
-                    data[key]
-                );
-
-            });
-
-
-        params.append(
-            "callback",
-            callback
-        );
-
-
-        params.append(
-            "t",
-            Date.now()
-        );
-
-
-        const script =
-            document.createElement("script");
-
-
-        script.src =
-            API_URL +
-            "?" +
-            params.toString();
-
-
-        script.onerror =
-            function() {
-
-                alert(
-                    "Gagal terhubung ke server."
-                );
-
-
-                delete window[callback];
-
-                script.remove();
-
-                resolve(false);
-
-            };
-
-
-        document.body.appendChild(
-            script
-        );
-
-    });
-}
 
 /* ==================================================
    CLOCK
@@ -1104,16 +786,13 @@ function updateClock(){
     const jam =
     now.toLocaleTimeString("id-ID");
 
-    document.getElementById("clock")
-    .innerText =
-    tanggal + " | " + jam;
-
+    document.getElementById("clock").innerText =
+        tanggal + " | " + jam;
 }
 
 setInterval(updateClock,1000);
 
 updateClock();
-
 
 
 /* ==================================================
@@ -1124,23 +803,388 @@ function showSection(id,button){
 
     document
     .querySelectorAll(".section")
-    .forEach(x =>
-        x.classList.remove("active")
-    );
+    .forEach(x=>{
+        x.classList.remove("active");
+    });
 
     document
     .getElementById(id)
     .classList.add("active");
 
-
     document
     .querySelectorAll(".tab")
-    .forEach(x =>
-        x.classList.remove("active")
-    );
+    .forEach(x=>{
+        x.classList.remove("active");
+    });
 
     button.classList.add("active");
+}
 
+
+/* ==================================================
+   LOAD DATA DENGAN JSONP
+================================================== */
+
+function loadData(){
+
+    if(loadingData){
+        return;
+    }
+
+    loadingData = true;
+
+    const status =
+        document.getElementById("serverStatus");
+
+    status.innerText =
+        "Menghubungkan...";
+
+    status.className =
+        "loading";
+
+
+    const callback =
+        "apiCallback_" +
+        Date.now() +
+        "_" +
+        Math.floor(Math.random()*10000);
+
+
+    let selesai = false;
+
+
+    const script =
+        document.createElement("script");
+
+
+    const timer =
+        setTimeout(function(){
+
+            if(selesai){
+                return;
+            }
+
+            selesai = true;
+
+            loadingData = false;
+
+            status.innerText =
+                "Gagal terhubung";
+
+            status.className =
+                "offline";
+
+            console.error(
+                "Timeout menghubungi Google Apps Script"
+            );
+
+            delete window[callback];
+
+            script.remove();
+
+        },15000);
+
+
+    window[callback] =
+        function(data){
+
+            if(selesai){
+                return;
+            }
+
+            selesai = true;
+
+            clearTimeout(timer);
+
+            loadingData = false;
+
+
+            console.log(
+                "DATA GOOGLE SHEET:",
+                data
+            );
+
+
+            if(!data){
+
+                status.innerText =
+                    "Data kosong";
+
+                status.className =
+                    "offline";
+
+                delete window[callback];
+
+                script.remove();
+
+                return;
+            }
+
+
+            if(data.success === false){
+
+                status.innerText =
+                    "Server Error";
+
+                status.className =
+                    "offline";
+
+                console.error(
+                    data.message
+                );
+
+                delete window[callback];
+
+                script.remove();
+
+                return;
+            }
+
+
+            engineers =
+                Array.isArray(data.engineers)
+                ? data.engineers
+                : [];
+
+
+            visits =
+                Array.isArray(data.visits)
+                ? data.visits
+                : [];
+
+
+            absensi =
+                Array.isArray(data.absensi)
+                ? data.absensi
+                : [];
+
+
+            status.innerText =
+                "ONLINE";
+
+            status.className =
+                "online";
+
+
+            renderAll();
+
+
+            delete window[callback];
+
+            script.remove();
+
+        };
+
+
+    script.onerror =
+        function(){
+
+            if(selesai){
+                return;
+            }
+
+            selesai = true;
+
+            clearTimeout(timer);
+
+            loadingData = false;
+
+            status.innerText =
+                "Gagal terhubung";
+
+            status.className =
+                "offline";
+
+            console.error(
+                "Google Apps Script tidak dapat diakses."
+            );
+
+            delete window[callback];
+
+            script.remove();
+
+        };
+
+
+    script.src =
+        API_URL +
+        "?callback=" +
+        encodeURIComponent(callback) +
+        "&_=" +
+        Date.now();
+
+
+    document.body.appendChild(script);
+}
+
+
+/* ==================================================
+   SEND DATA
+   MENGGUNAKAN GET + JSONP
+================================================== */
+
+function sendData(data){
+
+    return new Promise(function(resolve){
+
+        const callback =
+            "postCallback_" +
+            Date.now() +
+            "_" +
+            Math.floor(Math.random()*10000);
+
+
+        const script =
+            document.createElement("script");
+
+
+        let selesai = false;
+
+
+        const timer =
+            setTimeout(function(){
+
+                if(selesai){
+                    return;
+                }
+
+                selesai = true;
+
+                delete window[callback];
+
+                script.remove();
+
+                alert(
+                    "Server tidak merespons. Coba lagi."
+                );
+
+                resolve(false);
+
+            },20000);
+
+
+        window[callback] =
+            function(result){
+
+                if(selesai){
+                    return;
+                }
+
+                selesai = true;
+
+                clearTimeout(timer);
+
+
+                console.log(
+                    "RESPON GOOGLE:",
+                    result
+                );
+
+
+                delete window[callback];
+
+                script.remove();
+
+
+                if(
+                    result &&
+                    result.success
+                ){
+
+                    alert(
+                        result.message ||
+                        "Berhasil disimpan."
+                    );
+
+
+                    setTimeout(
+                        loadData,
+                        500
+                    );
+
+
+                    resolve(true);
+
+                }else{
+
+                    alert(
+                        result &&
+                        result.message
+                        ?
+                        result.message
+                        :
+                        "Gagal menyimpan data."
+                    );
+
+
+                    resolve(false);
+                }
+
+            };
+
+
+        script.onerror =
+            function(){
+
+                if(selesai){
+                    return;
+                }
+
+                selesai = true;
+
+                clearTimeout(timer);
+
+                delete window[callback];
+
+                script.remove();
+
+
+                alert(
+                    "Gagal terhubung ke server."
+                );
+
+
+                resolve(false);
+
+            };
+
+
+        const params =
+            new URLSearchParams();
+
+
+        Object.keys(data)
+        .forEach(function(key){
+
+            params.append(
+                key,
+                data[key] ?? ""
+            );
+
+        });
+
+
+        params.append(
+            "callback",
+            callback
+        );
+
+
+        params.append(
+            "_",
+            Date.now()
+        );
+
+
+        script.src =
+            API_URL +
+            "?" +
+            params.toString();
+
+
+        document.body.appendChild(script);
+
+    });
 }
 
 
@@ -1153,66 +1197,62 @@ async function tambahEngineer(){
     if(engineers.length >= 15){
 
         alert(
-            "Engineer sudah mencapai batas maksimal 15 orang."
+            "Engineer sudah mencapai maksimal 15 orang."
         );
 
         return;
-
     }
 
 
     const nama =
-    document
-    .getElementById("namaEngineer")
-    .value
-    .trim();
+        document
+        .getElementById("namaEngineer")
+        .value
+        .trim();
 
 
     const team =
-    document
-    .getElementById("teamEngineer")
-    .value
-    .trim();
+        document
+        .getElementById("teamEngineer")
+        .value
+        .trim();
 
 
     if(!nama){
 
         alert(
-            "Nama engineer belum diisi!"
+            "Nama engineer wajib diisi."
         );
 
         return;
-
     }
 
 
     const berhasil =
-    await sendData({
+        await sendData({
 
-        action:"addEngineer",
+            action:"addEngineer",
 
-        nama:nama,
+            nama:nama,
 
-        team:team
+            team:team
 
-    });
+        });
 
 
     if(berhasil){
 
         document
         .getElementById("namaEngineer")
-        .value="";
+        .value = "";
 
 
         document
         .getElementById("teamEngineer")
-        .value="";
+        .value = "";
 
     }
-
 }
-
 
 
 /* ==================================================
@@ -1222,48 +1262,48 @@ async function tambahEngineer(){
 async function tambahVisit(){
 
     const tanggal =
-    document
-    .getElementById("visitTanggal")
-    .value;
+        document
+        .getElementById("visitTanggal")
+        .value;
 
 
     const engineerId =
-    document
-    .getElementById("visitEngineer")
-    .value;
+        document
+        .getElementById("visitEngineer")
+        .value;
 
 
     const jam =
-    document
-    .getElementById("visitJam")
-    .value;
+        document
+        .getElementById("visitJam")
+        .value;
 
 
     const customer =
-    document
-    .getElementById("visitCustomer")
-    .value
-    .trim();
+        document
+        .getElementById("visitCustomer")
+        .value
+        .trim();
 
 
     const lokasi =
-    document
-    .getElementById("visitLokasi")
-    .value
-    .trim();
+        document
+        .getElementById("visitLokasi")
+        .value
+        .trim();
 
 
     const keperluan =
-    document
-    .getElementById("visitKeperluan")
-    .value
-    .trim();
+        document
+        .getElementById("visitKeperluan")
+        .value
+        .trim();
 
 
     const status =
-    document
-    .getElementById("visitStatus")
-    .value;
+        document
+        .getElementById("visitStatus")
+        .value;
 
 
     if(
@@ -1275,56 +1315,53 @@ async function tambahVisit(){
     ){
 
         alert(
-            "Tanggal, engineer, jam, customer dan lokasi wajib diisi!"
+            "Tanggal, engineer, jam, customer dan lokasi wajib diisi."
         );
 
         return;
-
     }
 
 
     const berhasil =
-    await sendData({
+        await sendData({
 
-        action:"addVisit",
+            action:"addVisit",
 
-        tanggal: tanggal,
+            tanggal:tanggal,
 
-        jam: jam,
+            jam:jam,
 
-        engineerId: engineerId,
+            engineerId:engineerId,
 
-        customer: customer,
+            customer:customer,
 
-        lokasi: lokasi,
+            lokasi:lokasi,
 
-        keperluan: keperluan,
+            keperluan:keperluan,
 
-        status: status
+            status:status
 
-    });
+        });
 
 
     if(berhasil){
 
         document
         .getElementById("visitCustomer")
-        .value="";
+        .value = "";
 
 
         document
         .getElementById("visitLokasi")
-        .value="";
+        .value = "";
 
 
         document
         .getElementById("visitKeperluan")
-        .value="";
+        .value = "";
 
     }
-
 }
-
 
 
 /* ==================================================
@@ -1334,25 +1371,24 @@ async function tambahVisit(){
 async function absen(){
 
     const engineerId =
-    document
-    .getElementById("absenEngineer")
-    .value;
+        document
+        .getElementById("absenEngineer")
+        .value;
 
 
     const status =
-    document
-    .getElementById("absenStatus")
-    .value;
+        document
+        .getElementById("absenStatus")
+        .value;
 
 
     if(!engineerId){
 
         alert(
-            "Pilih engineer terlebih dahulu!"
+            "Pilih engineer terlebih dahulu."
         );
 
         return;
-
     }
 
 
@@ -1365,9 +1401,7 @@ async function absen(){
         status:status
 
     });
-
 }
-
 
 
 /* ==================================================
@@ -1375,6 +1409,11 @@ async function absen(){
 ================================================== */
 
 async function ubahStatus(id,status){
+
+    if(!id){
+        return;
+    }
+
 
     await sendData({
 
@@ -1385,9 +1424,7 @@ async function ubahStatus(id,status){
         status:status
 
     });
-
 }
-
 
 
 /* ==================================================
@@ -1397,251 +1434,260 @@ async function ubahStatus(id,status){
 function renderEngineerSelect(){
 
     const visitSelect =
-    document.getElementById(
-        "visitEngineer"
-    );
+        document.getElementById(
+            "visitEngineer"
+        );
 
 
     const absenSelect =
-    document.getElementById(
-        "absenEngineer"
-    );
+        document.getElementById(
+            "absenEngineer"
+        );
 
 
     visitSelect.innerHTML =
-    '<option value="">-- Pilih Engineer --</option>';
+        '<option value="">-- Pilih Engineer --</option>';
 
 
     absenSelect.innerHTML =
-    '<option value="">-- Pilih Engineer --</option>';
+        '<option value="">-- Pilih Engineer --</option>';
 
 
-    engineers.forEach(e=>{
+    engineers.forEach(function(e){
 
         visitSelect.innerHTML +=
-        `<option value="${e.id}">
-            ${escapeHTML(e.nama)}
-        </option>`;
+            `<option value="${escapeHTML(e.id)}">
+                ${escapeHTML(e.nama)}
+            </option>`;
 
 
         absenSelect.innerHTML +=
-        `<option value="${e.id}">
-            ${escapeHTML(e.nama)}
-        </option>`;
+            `<option value="${escapeHTML(e.id)}">
+                ${escapeHTML(e.nama)}
+            </option>`;
 
     });
-
 }
 
 
-
 /* ==================================================
-   ENGINEER TABLE
+   RENDER ENGINEER
 ================================================== */
 
 function renderEngineer(){
 
     const table =
-    document.getElementById(
-        "tabelEngineer"
-    );
+        document.getElementById(
+            "tabelEngineer"
+        );
 
 
-    table.innerHTML="";
+    table.innerHTML = "";
 
 
-    if(engineers.length===0){
+    if(engineers.length === 0){
 
         table.innerHTML =
-        `<tr>
-            <td colspan="3" class="empty">
-                Belum ada engineer
-            </td>
-        </tr>`;
+            `<tr>
+                <td colspan="3" class="empty">
+                    Belum ada engineer
+                </td>
+            </tr>`;
 
         return;
-
     }
 
 
-    engineers.forEach((e,index)=>{
+    engineers.forEach(function(e,index){
 
         table.innerHTML +=
-        `<tr>
+            `<tr>
 
-            <td>${index+1}</td>
+                <td>
+                    ${index + 1}
+                </td>
 
-            <td>${escapeHTML(e.nama)}</td>
+                <td>
+                    ${escapeHTML(e.nama)}
+                </td>
 
-            <td>${escapeHTML(e.team || "-")}</td>
+                <td>
+                    ${escapeHTML(e.team || "-")}
+                </td>
 
-        </tr>`;
+            </tr>`;
 
     });
-
 }
 
 
-
 /* ==================================================
-   VISIT TABLE
+   RENDER VISIT
 ================================================== */
 
 function renderVisit(){
 
     const table =
-    document.getElementById(
-        "tabelVisit"
-    );
+        document.getElementById(
+            "tabelVisit"
+        );
 
 
-    table.innerHTML="";
+    table.innerHTML = "";
 
 
-    if(visits.length===0){
+    if(visits.length === 0){
 
         table.innerHTML =
-        `<tr>
-            <td colspan="8" class="empty">
-                Belum ada jadwal visit
-            </td>
-        </tr>`;
+            `<tr>
+                <td colspan="8" class="empty">
+                    Belum ada jadwal visit
+                </td>
+            </tr>`;
 
         return;
-
     }
 
 
     visits
     .slice()
-    .sort((a,b)=>{
+    .sort(function(a,b){
 
         return (
-            String(a.tanggal)
-            +String(a.jam)
+            String(a.tanggal) +
+            String(a.jam)
         )
         .localeCompare(
-            String(b.tanggal)
-            +String(b.jam)
+            String(b.tanggal) +
+            String(b.jam)
         );
 
     })
-    .forEach(v=>{
+    .forEach(function(v){
+
+        const status =
+            String(v.status || "");
+
+
+        let tombol = "";
+
+
+        if(status !== "Selesai"){
+
+            tombol =
+                `<button
+                    class="btn-success"
+                    onclick="ubahStatus(
+                        '${escapeHTML(v.id)}',
+                        'Selesai'
+                    )">
+                    Selesai
+                </button>`;
+
+        }else{
+
+            tombol = "✓";
+
+        }
+
 
         table.innerHTML +=
-        `<tr>
+            `<tr>
 
-            <td>
-                ${formatTanggal(v.tanggal)}
-            </td>
+                <td>
+                    ${formatTanggal(v.tanggal)}
+                </td>
 
-            <td>
-                ${escapeHTML(v.jam || "-")}
-            </td>
+                <td>
+                    ${formatJam(v.jam)}
+                </td>
 
-            <td>
-                ${escapeHTML(v.engineer || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.engineer || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.customer || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.customer || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.lokasi || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.lokasi || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.keperluan || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.keperluan || "-")}
+                </td>
 
-            <td>
-                ${badge(v.status)}
-            </td>
+                <td>
+                    ${badge(status)}
+                </td>
 
-            <td>
+                <td>
+                    ${tombol}
+                </td>
 
-                ${
-                    v.status !== "Selesai"
-                    ?
-                    `<button
-                    class="btn-success"
-                    onclick="ubahStatus('${v.id}','Selesai')">
-                    Selesai
-                    </button>`
-                    :
-                    "✓"
-                }
-
-            </td>
-
-        </tr>`;
+            </tr>`;
 
     });
-
 }
 
 
-
 /* ==================================================
-   ABSENSI TABLE
+   RENDER ABSENSI
 ================================================== */
 
 function renderAbsensi(){
 
     const table =
-    document.getElementById(
-        "tabelAbsensi"
-    );
+        document.getElementById(
+            "tabelAbsensi"
+        );
 
 
-    table.innerHTML="";
+    table.innerHTML = "";
 
 
-    if(absensi.length===0){
+    if(absensi.length === 0){
 
         table.innerHTML =
-        `<tr>
-            <td colspan="4" class="empty">
-                Belum ada data absensi
-            </td>
-        </tr>`;
+            `<tr>
+                <td colspan="4" class="empty">
+                    Belum ada data absensi
+                </td>
+            </tr>`;
 
         return;
-
     }
 
 
     absensi
     .slice()
     .reverse()
-    .forEach(a=>{
+    .forEach(function(a){
 
         table.innerHTML +=
-        `<tr>
+            `<tr>
 
-            <td>
-                ${formatTanggal(a.tanggal)}
-            </td>
+                <td>
+                    ${formatTanggal(a.tanggal)}
+                </td>
 
-            <td>
-                ${escapeHTML(a.jam || "-")}
-            </td>
+                <td>
+                    ${formatJam(a.jam)}
+                </td>
 
-            <td>
-                ${escapeHTML(a.engineer || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(a.engineer || "-")}
+                </td>
 
-            <td>
-                ${badge(a.status)}
-            </td>
+                <td>
+                    ${badge(a.status)}
+                </td>
 
-        </tr>`;
+            </tr>`;
 
     });
-
 }
-
 
 
 /* ==================================================
@@ -1651,122 +1697,118 @@ function renderAbsensi(){
 function renderDashboard(){
 
     const today =
-    getLocalDate();
+        getLocalDate();
 
 
     const todayVisit =
-    visits.filter(
-        v =>
-        String(v.tanggal)
-        .substring(0,10)
-        === today
-    );
+        visits.filter(function(v){
+
+            return normalizeDate(v.tanggal)
+                === today;
+
+        });
 
 
     const todaySelesai =
-    todayVisit.filter(
-        v =>
-        String(v.status)
-        .toLowerCase()
-        === "selesai"
-    );
+        todayVisit.filter(function(v){
+
+            return String(v.status)
+                .toLowerCase()
+                === "selesai";
+
+        });
 
 
     const todayAbsensi =
-    absensi.filter(
-        a =>
-        String(a.tanggal)
-        .substring(0,10)
-        === today
-    );
+        absensi.filter(function(a){
+
+            return normalizeDate(a.tanggal)
+                === today;
+
+        });
 
 
     document
-    .getElementById(
-        "totalEngineer"
-    )
+    .getElementById("totalEngineer")
     .innerText =
-    engineers.length;
+        engineers.length;
 
 
     document
-    .getElementById(
-        "visitHariIni"
-    )
+    .getElementById("visitHariIni")
     .innerText =
-    todayVisit.length;
+        todayVisit.length;
 
 
     document
-    .getElementById(
-        "visitSelesai"
-    )
+    .getElementById("visitSelesai")
     .innerText =
-    todaySelesai.length;
+        todaySelesai.length;
 
 
     document
-    .getElementById(
-        "absenHariIni"
-    )
+    .getElementById("absenHariIni")
     .innerText =
-    todayAbsensi.length;
+        todayAbsensi.length;
 
 
     const table =
-    document.getElementById(
-        "dashboardVisit"
-    );
+        document.getElementById(
+            "dashboardVisit"
+        );
 
 
-    table.innerHTML="";
+    table.innerHTML = "";
 
 
-    if(todayVisit.length===0){
+    if(todayVisit.length === 0){
 
         table.innerHTML =
-        `<tr>
-            <td colspan="5" class="empty">
-                Tidak ada visit hari ini
-            </td>
-        </tr>`;
+            `<tr>
+
+                <td
+                    colspan="5"
+                    class="empty">
+
+                    Tidak ada visit hari ini
+
+                </td>
+
+            </tr>`;
 
         return;
-
     }
 
 
-    todayVisit.forEach(v=>{
+    todayVisit.forEach(function(v){
 
         table.innerHTML +=
-        `<tr>
+            `<tr>
 
-            <td>
-                ${escapeHTML(v.engineer || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.engineer || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.customer || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.customer || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.lokasi || "-")}
-            </td>
+                <td>
+                    ${escapeHTML(v.lokasi || "-")}
+                </td>
 
-            <td>
-                ${escapeHTML(v.jam || "-")}
-            </td>
+                <td>
+                    ${formatJam(v.jam)}
+                </td>
 
-            <td>
-                ${badge(v.status)}
-            </td>
+                <td>
+                    ${badge(v.status)}
+                </td>
 
-        </tr>`;
+            </tr>`;
 
     });
-
 }
-
 
 
 /* ==================================================
@@ -1776,23 +1818,21 @@ function renderDashboard(){
 function badge(status){
 
     status =
-    status || "-";
+        status || "-";
 
 
     const cls =
-    String(status)
-    .toLowerCase()
-    .replace(/[^a-z]/g,"");
+        String(status)
+        .toLowerCase()
+        .replace(/[^a-z]/g,"");
 
 
     return `
-    <span class="badge ${cls}">
-        ${escapeHTML(status)}
-    </span>
+        <span class="badge ${cls}">
+            ${escapeHTML(status)}
+        </span>
     `;
-
 }
-
 
 
 /* ==================================================
@@ -1801,20 +1841,30 @@ function badge(status){
 
 function formatTanggal(tanggal){
 
-    if(!tanggal)
+    if(!tanggal){
         return "-";
+    }
+
+
+    const normalized =
+        normalizeDate(tanggal);
+
+
+    if(!normalized){
+        return String(tanggal);
+    }
 
 
     const d =
-    new Date(
-        String(tanggal)
-        .substring(0,10)
-        + "T00:00:00"
-    );
+        new Date(
+            normalized +
+            "T00:00:00"
+        );
 
 
-    if(isNaN(d.getTime()))
-        return tanggal;
+    if(isNaN(d.getTime())){
+        return String(tanggal);
+    }
 
 
     return d.toLocaleDateString(
@@ -1825,42 +1875,156 @@ function formatTanggal(tanggal){
             year:"numeric"
         }
     );
-
 }
+
+
+/* ==================================================
+   NORMALIZE DATE
+================================================== */
+
+function normalizeDate(value){
+
+    if(!value){
+        return "";
+    }
+
+
+    const str =
+        String(value);
+
+
+    // yyyy-mm-dd
+    const match =
+        str.match(
+            /(\d{4})-(\d{2})-(\d{2})/
+        );
+
+
+    if(match){
+
+        return (
+            match[1] +
+            "-" +
+            match[2] +
+            "-" +
+            match[3]
+        );
+
+    }
+
+
+    const d =
+        new Date(value);
+
+
+    if(isNaN(d.getTime())){
+        return "";
+    }
+
+
+    return (
+        d.getFullYear() +
+        "-" +
+        String(d.getMonth()+1)
+            .padStart(2,"0") +
+        "-" +
+        String(d.getDate())
+            .padStart(2,"0")
+    );
+}
+
+
 /* ==================================================
    FORMAT JAM
 ================================================== */
 
 function formatJam(jam){
 
-    if(!jam)
+    if(
+        jam === null ||
+        jam === undefined ||
+        jam === ""
+    ){
         return "-";
+    }
 
-    // Kalau sudah string seperti 09:00 atau 09:00:00
+
+    /*
+     * Kalau Google Sheet mengirim:
+     *
+     * 09:00
+     * 09:00:00
+     */
+
     if(typeof jam === "string"){
 
+        const str =
+            jam.trim();
+
+
         const match =
-            jam.match(/(\d{1,2}):(\d{2})/);
+            str.match(
+                /(\d{1,2}):(\d{2})(?::(\d{2}))?/
+            );
+
 
         if(match){
 
             return (
-                match[1].padStart(2,"0")
-                + ":" +
+                match[1].padStart(2,"0") +
+                ":" +
                 match[2]
             );
+
+        }
+
+
+        /*
+         * Kalau Google mengirim
+         * string tanggal lengkap
+         */
+
+        if(
+            str.includes("1899") ||
+            str.includes("1900") ||
+            str.includes("GMT")
+        ){
+
+            const d =
+                new Date(str);
+
+
+            if(!isNaN(d.getTime())){
+
+                return d
+                .toLocaleTimeString(
+                    "id-ID",
+                    {
+                        hour:"2-digit",
+                        minute:"2-digit",
+                        hour12:false
+                    }
+                );
+
+            }
 
         }
 
     }
 
 
-    // Kalau masih berupa Date string
-    const d = new Date(jam);
+    /*
+     * Kalau berupa Date object
+     */
+
+    const d =
+        new Date(jam);
+
 
     if(!isNaN(d.getTime())){
 
-        return d.toLocaleTimeString(
+        return d
+        .toLocaleTimeString(
             "id-ID",
             {
                 hour:"2-digit",
@@ -1873,9 +2037,7 @@ function formatJam(jam){
 
 
     return String(jam);
-
 }
-
 
 
 /* ==================================================
@@ -1885,37 +2047,21 @@ function formatJam(jam){
 function getLocalDate(){
 
     const d =
-    new Date();
-
-
-    const year =
-    d.getFullYear();
-
-
-    const month =
-    String(
-        d.getMonth()+1
-    )
-    .padStart(2,"0");
-
-
-    const day =
-    String(
-        d.getDate()
-    )
-    .padStart(2,"0");
+        new Date();
 
 
     return (
-        year +
+        d.getFullYear() +
         "-" +
-        month +
+        String(
+            d.getMonth()+1
+        ).padStart(2,"0") +
         "-" +
-        day
+        String(
+            d.getDate()
+        ).padStart(2,"0")
     );
-
 }
-
 
 
 /* ==================================================
@@ -1924,15 +2070,15 @@ function getLocalDate(){
 
 function escapeHTML(value){
 
-    return String(value ?? "")
+    return String(
+        value ?? ""
+    )
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
     .replace(/"/g,"&quot;")
     .replace(/'/g,"&#039;");
-
 }
-
 
 
 /* ==================================================
@@ -1950,9 +2096,7 @@ function renderAll(){
     renderAbsensi();
 
     renderDashboard();
-
 }
-
 
 
 /* ==================================================
@@ -1965,9 +2109,8 @@ document
 getLocalDate();
 
 
-
 /* ==================================================
-   START
+   START APPLICATION
 ================================================== */
 
 loadData();
@@ -1976,4 +2119,3 @@ loadData();
 
 </body>
 </html>
-```
