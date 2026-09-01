@@ -924,45 +924,98 @@ function showSection(id,button){
    LOAD DATA
 ================================================== */
 
-async function loadData(){
+function loadData(){
 
-    const status = document.getElementById("serverStatus");
+    const status =
+        document.getElementById("serverStatus");
 
-    status.innerText = "Testing...";
+    status.innerText =
+        "Menghubungkan...";
 
-    try {
+    status.className =
+        "loading";
 
-        const response = await fetch(API_URL);
 
-        const text = await response.text();
+    const callbackName =
+        "googleCallback_" +
+        Date.now();
 
-        console.log("HASIL APPS SCRIPT:");
-        console.log(text);
 
-        const data = JSON.parse(text);
+    window[callbackName] =
+        function(data){
 
-        engineers = data.engineers || [];
-        visits = data.visits || [];
-        absensi = data.absensi || [];
+            console.log(
+                "Data dari Apps Script:",
+                data
+            );
 
-        status.innerText = "ONLINE";
-        status.className = "online";
 
-        renderAll();
+            engineers =
+                data.engineers || [];
 
-    } catch(error) {
 
-        console.error("ERROR:", error);
+            visits =
+                data.visits || [];
 
-        status.innerText = "GAGAL";
-        status.className = "offline";
 
-        alert(
-            "Koneksi gagal:\n\n" +
-            error.message
-        );
+            absensi =
+                data.absensi || [];
 
-    }
+
+            status.innerText =
+                "ONLINE";
+
+            status.className =
+                "online";
+
+
+            renderAll();
+
+
+            delete window[callbackName];
+
+            script.remove();
+
+        };
+
+
+    const script =
+        document.createElement("script");
+
+
+    script.src =
+        API_URL +
+        "?callback=" +
+        callbackName +
+        "&t=" +
+        Date.now();
+
+
+    script.onerror =
+        function(){
+
+            status.innerText =
+                "Gagal terhubung";
+
+            status.className =
+                "offline";
+
+
+            console.error(
+                "Gagal mengakses Apps Script"
+            );
+
+
+            delete window[callbackName];
+
+            script.remove();
+
+        };
+
+
+    document.body.appendChild(
+        script
+    );
 
 }
 
@@ -971,58 +1024,118 @@ async function loadData(){
    SEND DATA
 ================================================== */
 
-async function sendData(data){
+function sendData(data){
 
-    try{
+    return new Promise(
+        function(resolve){
 
-        const response =
-        await fetch(
-            API_URL,
-            {
-                method:"POST",
-                mode:"no-cors",
-                body:JSON.stringify(data)
-            }
-        );
+            const callbackName =
+                "googleCallback_" +
+                Date.now();
 
 
-        /*
-        no-cors tidak bisa membaca response.
-        Setelah POST kita reload data dari server.
-        */
+            window[callbackName] =
+                function(result){
 
-        await new Promise(
-            resolve =>
-            setTimeout(resolve,1000)
-        );
+                    console.log(
+                        "Hasil:",
+                        result
+                    );
 
 
-        await loadData();
+                    delete window[callbackName];
+
+                    script.remove();
 
 
-        return true;
+                    if(
+                        result &&
+                        result.success
+                    ){
+
+                        setTimeout(
+                            loadData,
+                            500
+                        );
+
+                        resolve(true);
+
+                    }else{
+
+                        alert(
+                            result.message ||
+                            "Gagal menyimpan data"
+                        );
+
+                        resolve(false);
+
+                    }
+
+                };
 
 
-    }catch(error){
-
-        console.error(
-            "ERROR POST:",
-            error
-        );
+            const params =
+                new URLSearchParams();
 
 
-        alert(
-            "Gagal mengirim data.\n\n" +
-            error.message
-        );
+            Object.keys(data)
+            .forEach(function(key){
+
+                params.append(
+                    key,
+                    data[key]
+                );
+
+            });
 
 
-        return false;
+            params.append(
+                "callback",
+                callbackName
+            );
 
-    }
+
+            params.append(
+                "t",
+                Date.now()
+            );
+
+
+            const script =
+                document.createElement("script");
+
+
+            script.src =
+                API_URL +
+                "?" +
+                params.toString();
+
+
+            script.onerror =
+                function(){
+
+                    alert(
+                        "Gagal terhubung ke server"
+                    );
+
+
+                    delete window[callbackName];
+
+                    script.remove();
+
+                    resolve(false);
+
+                };
+
+
+            document.body.appendChild(
+                script
+            );
+
+        }
+    );
 
 }
-
 
 
 /* ==================================================
