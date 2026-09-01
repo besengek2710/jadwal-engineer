@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Engineer Visit & Absensi</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    background: #f3f5f9;
+    color: #222;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    background: #1f2937;
+    color: white;
+    padding: 20px;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: auto;
+}
+
+.header h1 {
+    margin: 0 0 5px;
+}
+
+.clock {
+    color: #d1d5db;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+    max-width: 1200px;
+    margin: 25px auto;
+    padding: 0 15px;
+}
+
+/* =========================
+   TAB
+========================= */
+
+.tabs {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 20px;
+    overflow-x: auto;
+}
+
+.tab {
+    padding: 12px 20px;
+    border: none;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.tab.active {
+    background: #2563eb;
+    color: white;
+}
+
+/* =========================
+   CARD
+========================= */
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+}
+
+.card h2 {
+    margin-top: 0;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input,
+select,
+textarea {
+    padding: 11px;
+    border: 1px solid #d1d5db;
+    border-radius: 7px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+button {
+    border: none;
+    border-radius: 7px;
+    padding: 11px 18px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+button:hover {
+    opacity: .85;
+}
+
+.btn-primary {
+    background: #2563eb;
+    color: white;
+}
+
+.btn-success {
+    background: #16a34a;
+    color: white;
+}
+
+.btn-danger {
+    background: #dc2626;
+    color: white;
+}
+
+.btn-warning {
+    background: #f59e0b;
+    color: white;
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+.dashboard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,.07);
+}
+
+.stat-title {
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.stat-number {
+    font-size: 30px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    padding: 11px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    white-space: nowrap;
+}
+
+th {
+    background: #f8fafc;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.terjadwal {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.berangkat {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.selesai {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.batal {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.hadir {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.izin {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.sakit {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* =========================
+   SECTION
+========================= */
+
+.section {
+    display: none;
+}
+
+.section.active {
+    display: block;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width: 800px) {
+
+    .dashboard {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+}
+
+@media(max-width: 500px) {
+
+    .dashboard {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .stat-number {
+        font-size: 24px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<div class="header">
+
+    <div class="header-content">
+
+        <h1>🔧 Engineer Visit Management</h1>
+
+        <div class="clock" id="clock"></div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+
+
+<!-- =========================
+     TAB
+========================= -->
+
+<div class="tabs">
+
+    <button class="tab active"
+            onclick="showSection('dashboard',this)">
+        📊 Dashboard
+    </button>
+
+    <button class="tab"
+            onclick="showSection('jadwal',this)">
+        📅 Jadwal Visit
+    </button>
+
+    <button class="tab"
+            onclick="showSection('absensi',this)">
+        🕐 Absensi
+    </button>
+
+    <button class="tab"
+            onclick="showSection('engineer',this)">
+        👨‍🔧 Engineer
+    </button>
+
+</div>
+
+
+<!-- =========================
+     DASHBOARD
+========================= -->
+
+<div id="dashboard" class="section active">
+
+    <div class="dashboard">
+
+        <div class="stat">
+            <div class="stat-title">Total Engineer</div>
+            <div class="stat-number" id="totalEngineer">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-title">Visit Hari Ini</div>
+            <div class="stat-number" id="visitHariIni">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-title">Selesai</div>
+            <div class="stat-number" id="visitSelesai">0</div>
+        </div>
+
+        <div class="stat">
+            <div class="stat-title">Absensi Hari Ini</div>
+            <div class="stat-number" id="absenHariIni">0</div>
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>📅 Jadwal Visit Hari Ini</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Engineer</th>
+                        <th>Customer</th>
+                        <th>Lokasi</th>
+                        <th>Jam</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="dashboardVisit"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     JADWAL VISIT
+========================= -->
+
+<div id="jadwal" class="section">
+
+    <div class="card">
+
+        <h2>➕ Tambah Jadwal Visit</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Tanggal</label>
+
+                <input
+                    type="date"
+                    id="visitTanggal">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Engineer</label>
+
+                <select id="visitEngineer"></select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Jam Mulai</label>
+
+                <input
+                    type="time"
+                    id="visitJam">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Customer / Project</label>
+
+                <input
+                    type="text"
+                    id="visitCustomer"
+                    placeholder="Contoh: PT ABC">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Lokasi</label>
+
+                <input
+                    type="text"
+                    id="visitLokasi"
+                    placeholder="Contoh: Surabaya">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select id="visitStatus">
+
+                    <option value="Terjadwal">
+                        Terjadwal
+                    </option>
+
+                    <option value="Berangkat">
+                        Berangkat
+                    </option>
+
+                    <option value="Selesai">
+                        Selesai
+                    </option>
+
+                    <option value="Batal">
+                        Batal
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <label>Keperluan / Pekerjaan</label>
+
+                <textarea
+                    id="visitKeperluan"
+                    placeholder="Contoh: Troubleshooting PLC conveyor"></textarea>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <button
+                    class="btn-primary"
+                    onclick="tambahVisit()">
+
+                    💾 Simpan Jadwal
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>📋 Daftar Jadwal Visit</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Engineer</th>
+                        <th>Customer</th>
+                        <th>Lokasi</th>
+                        <th>Keperluan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tabelVisit"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ABSENSI
+========================= -->
+
+<div id="absensi" class="section">
+
+    <div class="card">
+
+        <h2>🕐 Absensi Engineer</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Engineer</label>
+
+                <select id="absenEngineer"></select>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select id="absenStatus">
+
+                    <option value="Hadir">
+                        Hadir
+                    </option>
+
+                    <option value="Izin">
+                        Izin
+                    </option>
+
+                    <option value="Sakit">
+                        Sakit
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <button
+                    class="btn-success"
+                    onclick="absen()">
+
+                    ✅ Absen Sekarang
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>📋 Riwayat Absensi</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>Tanggal</th>
+                        <th>Jam</th>
+                        <th>Engineer</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tabelAbsensi"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     ENGINEER
+========================= -->
+
+<div id="engineer" class="section">
+
+    <div class="card">
+
+        <h2>➕ Tambah Engineer</h2>
+
+        <div class="form-grid">
+
+            <div class="form-group">
+
+                <label>Nama Engineer</label>
+
+                <input
+                    type="text"
+                    id="namaEngineer"
+                    placeholder="Contoh: Budi">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Departemen / Team</label>
+
+                <input
+                    type="text"
+                    id="teamEngineer"
+                    placeholder="Contoh: Automation">
+
+            </div>
+
+
+            <div class="form-group full">
+
+                <button
+                    class="btn-primary"
+                    onclick="tambahEngineer()">
+
+                    ➕ Tambah Engineer
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>👨‍🔧 Daftar Engineer</h2>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Team</th>
+                        <th>Aksi</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tabelEngineer"></tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+/* =====================================
+   DATABASE LOCAL STORAGE
+===================================== */
+
+let engineers =
+    JSON.parse(localStorage.getItem("engineers")) || [];
+
+let visits =
+    JSON.parse(localStorage.getItem("visits")) || [];
+
+let absensi =
+    JSON.parse(localStorage.getItem("absensi")) || [];
+
+
+/* =====================================
+   CLOCK
+===================================== */
+
+function updateClock() {
+
+    const now = new Date();
+
+    const tanggal =
+        now.toLocaleDateString("id-ID", {
+            weekday: "long",
+            day: "2-digit",
+            month: "long",
+            year: "numeric"
+        });
+
+    const jam =
+        now.toLocaleTimeString("id-ID");
+
+    document.getElementById("clock").innerHTML =
+        tanggal + " | " + jam;
+
+}
+
+setInterval(updateClock,1000);
+
+updateClock();
+
+
+/* =====================================
+   TAB
+===================================== */
+
+function showSection(id,button) {
+
+    document.querySelectorAll(".section")
+        .forEach(section =>
+            section.classList.remove("active"));
+
+    document.getElementById(id)
+        .classList.add("active");
+
+    document.querySelectorAll(".tab")
+        .forEach(tab =>
+            tab.classList.remove("active"));
+
+    button.classList.add("active");
+
+}
+
+
+/* =====================================
+   SAVE DATABASE
+===================================== */
+
+function saveData() {
+
+    localStorage.setItem(
+        "engineers",
+        JSON.stringify(engineers)
+    );
+
+    localStorage.setItem(
+        "visits",
+        JSON.stringify(visits)
+    );
+
+    localStorage.setItem(
+        "absensi",
+        JSON.stringify(absensi)
+    );
+
+}
+
+
+/* =====================================
+   ENGINEER
+===================================== */
+
+function tambahEngineer() {
+
+    const nama =
+        document.getElementById("namaEngineer")
+        .value.trim();
+
+    const team =
+        document.getElementById("teamEngineer")
+        .value.trim();
+
+    if (!nama) {
+
+        alert("Nama engineer belum diisi!");
+
+        return;
+    }
+
+    engineers.push({
+
+        id: Date.now(),
+
+        nama: nama,
+
+        team: team
+
+    });
+
+    saveData();
+
+    document.getElementById("namaEngineer").value = "";
+
+    document.getElementById("teamEngineer").value = "";
+
+    renderAll();
+
+}
+
+
+function hapusEngineer(id) {
+
+    if (!confirm("Hapus engineer ini?")) return;
+
+    engineers =
+        engineers.filter(e => e.id !== id);
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   ENGINEER DROPDOWN
+===================================== */
+
+function renderEngineerSelect() {
+
+    const selects = [
+
+        document.getElementById("visitEngineer"),
+
+        document.getElementById("absenEngineer")
+
+    ];
+
+    selects.forEach(select => {
+
+        select.innerHTML =
+            '<option value="">-- Pilih Engineer --</option>';
+
+        engineers.forEach(e => {
+
+            select.innerHTML += `
+
+                <option value="${e.id}">
+                    ${e.nama}
+                </option>
+
+            `;
+
+        });
+
+    });
+
+}
+
+
+/* =====================================
+   TAMBAH VISIT
+===================================== */
+
+function tambahVisit() {
+
+    const tanggal =
+        document.getElementById("visitTanggal").value;
+
+    const engineerId =
+        document.getElementById("visitEngineer").value;
+
+    const jam =
+        document.getElementById("visitJam").value;
+
+    const customer =
+        document.getElementById("visitCustomer")
+        .value.trim();
+
+    const lokasi =
+        document.getElementById("visitLokasi")
+        .value.trim();
+
+    const keperluan =
+        document.getElementById("visitKeperluan")
+        .value.trim();
+
+    const status =
+        document.getElementById("visitStatus").value;
+
+
+    if (
+        !tanggal ||
+        !engineerId ||
+        !jam ||
+        !customer ||
+        !lokasi
+    ) {
+
+        alert("Data jadwal belum lengkap!");
+
+        return;
+    }
+
+
+    const engineer =
+        engineers.find(e =>
+            e.id == engineerId);
+
+
+    visits.push({
+
+        id: Date.now(),
+
+        tanggal: tanggal,
+
+        jam: jam,
+
+        engineerId: engineerId,
+
+        engineer: engineer.nama,
+
+        customer: customer,
+
+        lokasi: lokasi,
+
+        keperluan: keperluan,
+
+        status: status
+
+    });
+
+
+    saveData();
+
+    alert("Jadwal visit berhasil disimpan!");
+
+    document.getElementById("visitCustomer").value = "";
+
+    document.getElementById("visitLokasi").value = "";
+
+    document.getElementById("visitKeperluan").value = "";
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   HAPUS VISIT
+===================================== */
+
+function hapusVisit(id) {
+
+    if (!confirm("Hapus jadwal ini?")) return;
+
+    visits =
+        visits.filter(v => v.id !== id);
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   UBAH STATUS VISIT
+===================================== */
+
+function ubahStatusVisit(id,status) {
+
+    const visit =
+        visits.find(v => v.id === id);
+
+    if (!visit) return;
+
+    visit.status = status;
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   ABSENSI
+===================================== */
+
+function absen() {
+
+    const engineerId =
+        document.getElementById("absenEngineer").value;
+
+    const status =
+        document.getElementById("absenStatus").value;
+
+
+    if (!engineerId) {
+
+        alert("Pilih engineer terlebih dahulu!");
+
+        return;
+    }
+
+
+    const engineer =
+        engineers.find(e =>
+            e.id == engineerId);
+
+
+    const now = new Date();
+
+
+    const tanggal =
+        now.toISOString().split("T")[0];
+
+
+    const jam =
+        now.toLocaleTimeString("id-ID");
+
+
+    // Cek apakah sudah absen
+    const sudah =
+        absensi.find(a =>
+            a.engineerId == engineerId &&
+            a.tanggal == tanggal
+        );
+
+
+    if (sudah) {
+
+        alert(
+            "Engineer tersebut sudah melakukan absensi hari ini!"
+        );
+
+        return;
+    }
+
+
+    absensi.push({
+
+        id: Date.now(),
+
+        tanggal: tanggal,
+
+        jam: jam,
+
+        engineerId: engineerId,
+
+        engineer: engineer.nama,
+
+        status: status
+
+    });
+
+
+    saveData();
+
+    alert("Absensi berhasil!");
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   HAPUS ABSENSI
+===================================== */
+
+function hapusAbsensi(id) {
+
+    if (!confirm("Hapus data absensi?")) return;
+
+    absensi =
+        absensi.filter(a => a.id !== id);
+
+    saveData();
+
+    renderAll();
+
+}
+
+
+/* =====================================
+   STATUS BADGE
+===================================== */
+
+function badgeStatus(status) {
+
+    const cls =
+        status.toLowerCase();
+
+    return `
+        <span class="badge ${cls}">
+            ${status}
+        </span>
+    `;
+
+}
+
+
+/* =====================================
+   RENDER ENGINEER
+===================================== */
+
+function renderEngineerTable() {
+
+    const table =
+        document.getElementById("tabelEngineer");
+
+    table.innerHTML = "";
+
+    if (engineers.length === 0) {
+
+        table.innerHTML = `
+            <tr>
+                <td colspan="4">
+                    Belum ada engineer
+                </td>
+            </tr>
+        `;
+
+        return;
+    }
+
+
+    engineers.forEach((e,index) => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${index + 1}</td>
+
+                <td>${e.nama}</td>
+
+                <td>${e.team || "-"}</td>
+
+                <td>
+
+                    <button
+                        class="btn-danger"
+                        onclick="hapusEngineer(${e.id})">
+
+                        Hapus
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   RENDER VISIT
+===================================== */
+
+function renderVisitTable() {
+
+    const table =
+        document.getElementById("tabelVisit");
+
+    table.innerHTML = "";
+
+
+    const sorted =
+        [...visits].sort((a,b) =>
+            (a.tanggal+a.jam)
+            .localeCompare(b.tanggal+b.jam)
+        );
+
+
+    sorted.forEach(v => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${formatTanggal(v.tanggal)}</td>
+
+                <td>${v.jam}</td>
+
+                <td>${v.engineer}</td>
+
+                <td>${v.customer}</td>
+
+                <td>${v.lokasi}</td>
+
+                <td>${v.keperluan || "-"}</td>
+
+                <td>
+                    ${badgeStatus(v.status)}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-success"
+                        onclick="ubahStatusVisit(${v.id},'Selesai')">
+
+                        Selesai
+
+                    </button>
+
+                    <button
+                        class="btn-danger"
+                        onclick="hapusVisit(${v.id})">
+
+                        Hapus
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   RENDER ABSENSI
+===================================== */
+
+function renderAbsensiTable() {
+
+    const table =
+        document.getElementById("tabelAbsensi");
+
+    table.innerHTML = "";
+
+
+    const sorted =
+        [...absensi].reverse();
+
+
+    sorted.forEach(a => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>
+                    ${formatTanggal(a.tanggal)}
+                </td>
+
+                <td>${a.jam}</td>
+
+                <td>${a.engineer}</td>
+
+                <td>
+                    ${badgeStatus(a.status)}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-danger"
+                        onclick="hapusAbsensi(${a.id})">
+
+                        Hapus
+
+                    </button>
+
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+}
+
+
+/* =====================================
+   DASHBOARD
+===================================== */
+
+function renderDashboard() {
+
+    const today =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+    const visitToday =
+        visits.filter(v =>
+            v.tanggal === today);
+
+
+    const selesai =
+        visitToday.filter(v =>
+            v.status === "Selesai");
+
+
+    const absenToday =
+        absensi.filter(a =>
+            a.tanggal === today);
+
+
+    document.getElementById(
+        "totalEngineer"
+    ).innerText = engineers.length;
+
+
+    document.getElementById(
+        "visitHariIni"
+    ).innerText = visitToday.length;
+
+
+    document.getElementById(
+        "visitSelesai"
+    ).innerText = selesai.length;
+
+
+    document.getElementById(
+        "absenHariIni"
+    ).innerText = absenToday.length;
+
+
+    const table =
+        document.getElementById(
+            "dashboardVisit"
+        );
+
+
+    table.innerHTML = "";
+
+
+    visitToday.forEach(v => {
+
+        table.innerHTML += `
+
+            <tr>
+
+                <td>${v.engineer}</td>
+
+                <td>${v.customer}</td>
+
+                <td>${v.lokasi}</td>
+
+                <td>${v.jam}</td>
+
+                <td>
+                    ${badgeStatus(v.status)}
+                </td>
+
+            </tr>
+
+        `;
+
+    });
+
+
+    if (visitToday.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td colspan="5"
+                    style="text-align:center">
+
+                    Tidak ada jadwal visit hari ini
+
+                </td>
+
+            </tr>
+
+        `;
+
+    }
+
+}
+
+
+/* =====================================
+   FORMAT TANGGAL
+===================================== */
+
+function formatTanggal(tanggal) {
+
+    const d =
+        new Date(tanggal + "T00:00:00");
+
+    return d.toLocaleDateString(
+        "id-ID",
+        {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =====================================
+   RENDER SEMUA
+===================================== */
+
+function renderAll() {
+
+    renderEngineerSelect();
+
+    renderEngineerTable();
+
+    renderVisitTable();
+
+    renderAbsensiTable();
+
+    renderDashboard();
+
+}
+
+
+/* =====================================
+   DEFAULT DATE
+===================================== */
+
+document.getElementById(
+    "visitTanggal"
+).value =
+    new Date()
+    .toISOString()
+    .split("T")[0];
+
+
+/* =====================================
+   START
+===================================== */
+
+renderAll();
+
+</script>
+
+</body>
+</html>
+```
