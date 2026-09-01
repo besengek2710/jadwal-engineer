@@ -859,6 +859,231 @@ let visits = [];
 let absensi = [];
 
 
+// ======================================================
+// LOAD DATA
+// ======================================================
+
+function loadData() {
+
+    const status =
+        document.getElementById("serverStatus");
+
+    status.innerText =
+        "Menghubungkan...";
+
+
+    const callback =
+        "apiCallback_" + Date.now();
+
+
+    window[callback] =
+        function(data) {
+
+            console.log(
+                "DATA SERVER:",
+                data
+            );
+
+
+            if (!data) {
+
+                status.innerText =
+                    "Gagal terhubung";
+
+                status.className =
+                    "offline";
+
+                return;
+            }
+
+
+            engineers =
+                data.engineers || [];
+
+
+            visits =
+                data.visits || [];
+
+
+            absensi =
+                data.absensi || [];
+
+
+            status.innerText =
+                "ONLINE";
+
+            status.className =
+                "online";
+
+
+            renderAll();
+
+
+            delete window[callback];
+
+            script.remove();
+
+        };
+
+
+    const script =
+        document.createElement("script");
+
+
+    script.src =
+        API_URL +
+        "?callback=" +
+        callback +
+        "&t=" +
+        Date.now();
+
+
+    script.onerror =
+        function() {
+
+            console.error(
+                "Apps Script tidak dapat diakses."
+            );
+
+
+            status.innerText =
+                "Gagal terhubung";
+
+
+            status.className =
+                "offline";
+
+
+            delete window[callback];
+
+            script.remove();
+
+        };
+
+
+    document.body.appendChild(script);
+}
+
+
+// ======================================================
+// KIRIM DATA
+// ======================================================
+
+function sendData(data) {
+
+    return new Promise(function(resolve) {
+
+        const callback =
+            "apiCallback_" + Date.now();
+
+
+        window[callback] =
+            function(result) {
+
+                console.log(
+                    "RESPON SERVER:",
+                    result
+                );
+
+
+                delete window[callback];
+
+                script.remove();
+
+
+                if (
+                    result &&
+                    result.success
+                ) {
+
+                    alert(
+                        result.message ||
+                        "Berhasil"
+                    );
+
+
+                    setTimeout(
+                        loadData,
+                        300
+                    );
+
+
+                    resolve(true);
+
+                } else {
+
+                    alert(
+                        result.message ||
+                        "Gagal menyimpan"
+                    );
+
+
+                    resolve(false);
+                }
+
+            };
+
+
+        const params =
+            new URLSearchParams();
+
+
+        Object.keys(data)
+            .forEach(function(key) {
+
+                params.append(
+                    key,
+                    data[key]
+                );
+
+            });
+
+
+        params.append(
+            "callback",
+            callback
+        );
+
+
+        params.append(
+            "t",
+            Date.now()
+        );
+
+
+        const script =
+            document.createElement("script");
+
+
+        script.src =
+            API_URL +
+            "?" +
+            params.toString();
+
+
+        script.onerror =
+            function() {
+
+                alert(
+                    "Gagal terhubung ke server."
+                );
+
+
+                delete window[callback];
+
+                script.remove();
+
+                resolve(false);
+
+            };
+
+
+        document.body.appendChild(
+            script
+        );
+
+    });
+}
 
 /* ==================================================
    CLOCK
@@ -915,225 +1140,6 @@ function showSection(id,button){
     );
 
     button.classList.add("active");
-
-}
-
-
-
-/* ==================================================
-   LOAD DATA
-================================================== */
-
-function loadData(){
-
-    const status =
-        document.getElementById("serverStatus");
-
-    status.innerText =
-        "Menghubungkan...";
-
-    status.className =
-        "loading";
-
-
-    const callbackName =
-        "googleCallback_" +
-        Date.now();
-
-
-    window[callbackName] =
-        function(data){
-
-            console.log(
-                "Data dari Apps Script:",
-                data
-            );
-
-
-            engineers =
-                data.engineers || [];
-
-
-            visits =
-                data.visits || [];
-
-
-            absensi =
-                data.absensi || [];
-
-
-            status.innerText =
-                "ONLINE";
-
-            status.className =
-                "online";
-
-
-            renderAll();
-
-
-            delete window[callbackName];
-
-            script.remove();
-
-        };
-
-
-    const script =
-        document.createElement("script");
-
-
-    script.src =
-        API_URL +
-        "?callback=" +
-        callbackName +
-        "&t=" +
-        Date.now();
-
-
-    script.onerror =
-        function(){
-
-            status.innerText =
-                "Gagal terhubung";
-
-            status.className =
-                "offline";
-
-
-            console.error(
-                "Gagal mengakses Apps Script"
-            );
-
-
-            delete window[callbackName];
-
-            script.remove();
-
-        };
-
-
-    document.body.appendChild(
-        script
-    );
-
-}
-
-
-/* ==================================================
-   SEND DATA
-================================================== */
-
-function sendData(data){
-
-    return new Promise(
-        function(resolve){
-
-            const callbackName =
-                "googleCallback_" +
-                Date.now();
-
-
-            window[callbackName] =
-                function(result){
-
-                    console.log(
-                        "Hasil:",
-                        result
-                    );
-
-
-                    delete window[callbackName];
-
-                    script.remove();
-
-
-                    if(
-                        result &&
-                        result.success
-                    ){
-
-                        setTimeout(
-                            loadData,
-                            500
-                        );
-
-                        resolve(true);
-
-                    }else{
-
-                        alert(
-                            result.message ||
-                            "Gagal menyimpan data"
-                        );
-
-                        resolve(false);
-
-                    }
-
-                };
-
-
-            const params =
-                new URLSearchParams();
-
-
-            Object.keys(data)
-            .forEach(function(key){
-
-                params.append(
-                    key,
-                    data[key]
-                );
-
-            });
-
-
-            params.append(
-                "callback",
-                callbackName
-            );
-
-
-            params.append(
-                "t",
-                Date.now()
-            );
-
-
-            const script =
-                document.createElement("script");
-
-
-            script.src =
-                API_URL +
-                "?" +
-                params.toString();
-
-
-            script.onerror =
-                function(){
-
-                    alert(
-                        "Gagal terhubung ke server"
-                    );
-
-
-                    delete window[callbackName];
-
-                    script.remove();
-
-                    resolve(false);
-
-                };
-
-
-            document.body.appendChild(
-                script
-            );
-
-        }
-    );
 
 }
 
