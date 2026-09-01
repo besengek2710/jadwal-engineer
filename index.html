@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -190,6 +191,11 @@ button:disabled{
     color:white;
 }
 
+.btn-danger{
+    background:#dc2626;
+    color:white;
+}
+
 .btn-warning{
     background:#f59e0b;
     color:white;
@@ -199,6 +205,13 @@ button:disabled{
     background:#6b7280;
     color:white;
     margin-left:10px;
+}
+
+.btn-delete{
+    background:#dc2626;
+    color:white;
+    padding:7px 10px;
+    font-size:12px;
 }
 
 .table-wrapper{
@@ -298,6 +311,10 @@ th{
 
     .header h1{
         font-size:22px;
+    }
+
+    .btn-delete{
+        padding:7px 9px;
     }
 
 }
@@ -732,6 +749,7 @@ onclick="tambahEngineer()">
 <th>No</th>
 <th>Nama</th>
 <th>Team</th>
+<th>Aksi</th>
 </tr>
 
 </thead>
@@ -802,18 +820,23 @@ function showSection(id,button){
 
     document
     .querySelectorAll(".section")
-    .forEach(x=>{
+    .forEach(function(x){
+
         x.classList.remove("active");
+
     });
 
     document
     .getElementById(id)
     .classList.add("active");
 
+
     document
     .querySelectorAll(".tab")
-    .forEach(x=>{
+    .forEach(function(x){
+
         x.classList.remove("active");
+
     });
 
     button.classList.add("active");
@@ -821,7 +844,7 @@ function showSection(id,button){
 
 
 /* ==================================================
-   LOAD DATA DENGAN JSONP
+   LOAD DATA
 ================================================== */
 
 function loadData(){
@@ -1019,7 +1042,6 @@ function loadData(){
 
 /* ==================================================
    SEND DATA
-   MENGGUNAKAN GET + JSONP
 ================================================== */
 
 function sendData(data){
@@ -1041,111 +1063,111 @@ function sendData(data){
 
 
         const timer =
-            setTimeout(function(){
+        setTimeout(function(){
 
-                if(selesai){
-                    return;
-                }
+            if(selesai){
+                return;
+            }
 
-                selesai = true;
+            selesai = true;
 
-                delete window[callback];
+            delete window[callback];
 
-                script.remove();
+            script.remove();
 
-                alert(
-                    "Server tidak merespons. Coba lagi."
-                );
+            alert(
+                "Server tidak merespons. Coba lagi."
+            );
 
-                resolve(false);
+            resolve(false);
 
-            },20000);
+        },20000);
 
 
         window[callback] =
-            function(result){
+        function(result){
 
-                if(selesai){
-                    return;
-                }
+            if(selesai){
+                return;
+            }
 
-                selesai = true;
+            selesai = true;
 
-                clearTimeout(timer);
+            clearTimeout(timer);
 
 
-                console.log(
-                    "RESPON GOOGLE:",
-                    result
+            console.log(
+                "RESPON GOOGLE:",
+                result
+            );
+
+
+            delete window[callback];
+
+            script.remove();
+
+
+            if(
+                result &&
+                result.success
+            ){
+
+                alert(
+                    result.message ||
+                    "Berhasil."
                 );
 
 
-                delete window[callback];
-
-                script.remove();
-
-
-                if(
-                    result &&
-                    result.success
-                ){
-
-                    alert(
-                        result.message ||
-                        "Berhasil disimpan."
-                    );
+                setTimeout(
+                    loadData,
+                    500
+                );
 
 
-                    setTimeout(
-                        loadData,
-                        500
-                    );
+                resolve(true);
 
-
-                    resolve(true);
-
-                }else{
-
-                    alert(
-                        result &&
-                        result.message
-                        ?
-                        result.message
-                        :
-                        "Gagal menyimpan data."
-                    );
-
-
-                    resolve(false);
-                }
-
-            };
-
-
-        script.onerror =
-            function(){
-
-                if(selesai){
-                    return;
-                }
-
-                selesai = true;
-
-                clearTimeout(timer);
-
-                delete window[callback];
-
-                script.remove();
-
+            }else{
 
                 alert(
-                    "Gagal terhubung ke server."
+                    result &&
+                    result.message
+                    ?
+                    result.message
+                    :
+                    "Gagal menyimpan data."
                 );
 
 
                 resolve(false);
+            }
 
-            };
+        };
+
+
+        script.onerror =
+        function(){
+
+            if(selesai){
+                return;
+            }
+
+            selesai = true;
+
+            clearTimeout(timer);
+
+            delete window[callback];
+
+            script.remove();
+
+
+            alert(
+                "Gagal terhubung ke server."
+            );
+
+
+            resolve(false);
+
+        };
 
 
         const params =
@@ -1255,6 +1277,40 @@ async function tambahEngineer(){
 
 
 /* ==================================================
+   HAPUS ENGINEER
+================================================== */
+
+async function hapusEngineer(id,nama){
+
+    if(!id){
+        return;
+    }
+
+
+    const yakin =
+        confirm(
+            "Yakin ingin menghapus engineer:\n\n" +
+            nama +
+            "\n\nData engineer akan dihapus."
+        );
+
+
+    if(!yakin){
+        return;
+    }
+
+
+    await sendData({
+
+        action:"deleteEngineer",
+
+        id:id
+
+    });
+}
+
+
+/* ==================================================
    TAMBAH VISIT
 ================================================== */
 
@@ -1360,6 +1416,38 @@ async function tambahVisit(){
         .value = "";
 
     }
+}
+
+
+/* ==================================================
+   HAPUS VISIT
+================================================== */
+
+async function hapusVisit(id){
+
+    if(!id){
+        return;
+    }
+
+
+    const yakin =
+        confirm(
+            "Yakin ingin menghapus jadwal visit ini?"
+        );
+
+
+    if(!yakin){
+        return;
+    }
+
+
+    await sendData({
+
+        action:"deleteVisit",
+
+        id:id
+
+    });
 }
 
 
@@ -1488,7 +1576,7 @@ function renderEngineer(){
 
         table.innerHTML =
             `<tr>
-                <td colspan="3" class="empty">
+                <td colspan="4" class="empty">
                     Belum ada engineer
                 </td>
             </tr>`;
@@ -1512,6 +1600,21 @@ function renderEngineer(){
 
                 <td>
                     ${escapeHTML(e.team || "-")}
+                </td>
+
+                <td>
+
+                    <button
+                        class="btn-delete"
+                        onclick="hapusEngineer(
+                            '${escapeHTML(e.id)}',
+                            '${escapeHTML(e.nama)}'
+                        )">
+
+                        🗑️ Hapus
+
+                    </button>
+
                 </td>
 
             </tr>`;
@@ -1568,24 +1671,26 @@ function renderVisit(){
             String(v.status || "");
 
 
-        let tombol = "";
+        let tombolStatus = "";
 
 
         if(status !== "Selesai"){
 
-            tombol =
+            tombolStatus =
                 `<button
                     class="btn-success"
                     onclick="ubahStatus(
                         '${escapeHTML(v.id)}',
                         'Selesai'
                     )">
+
                     Selesai
+
                 </button>`;
 
         }else{
 
-            tombol = "✓";
+            tombolStatus = "✓";
 
         }
 
@@ -1622,7 +1727,20 @@ function renderVisit(){
                 </td>
 
                 <td>
-                    ${tombol}
+
+                    ${tombolStatus}
+
+                    <button
+                        class="btn-delete"
+                        style="margin-left:5px"
+                        onclick="hapusVisit(
+                            '${escapeHTML(v.id)}'
+                        )">
+
+                        🗑️
+
+                    </button>
+
                 </td>
 
             </tr>`;
@@ -1892,7 +2010,6 @@ function normalizeDate(value){
         String(value);
 
 
-    // yyyy-mm-dd
     const match =
         str.match(
             /(\d{4})-(\d{2})-(\d{2})/
@@ -1948,13 +2065,6 @@ function formatJam(jam){
     }
 
 
-    /*
-     * Kalau Google Sheet mengirim:
-     *
-     * 09:00
-     * 09:00:00
-     */
-
     if(typeof jam === "string"){
 
         const str =
@@ -1978,11 +2088,6 @@ function formatJam(jam){
         }
 
 
-        /*
-         * Kalau Google mengirim
-         * string tanggal lengkap
-         */
-
         if(
             str.includes("1899") ||
             str.includes("1900") ||
@@ -1995,8 +2100,7 @@ function formatJam(jam){
 
             if(!isNaN(d.getTime())){
 
-                return d
-                .toLocaleTimeString(
+                return d.toLocaleTimeString(
                     "id-ID",
                     {
                         hour:"2-digit",
@@ -2012,18 +2116,13 @@ function formatJam(jam){
     }
 
 
-    /*
-     * Kalau berupa Date object
-     */
-
     const d =
         new Date(jam);
 
 
     if(!isNaN(d.getTime())){
 
-        return d
-        .toLocaleTimeString(
+        return d.toLocaleTimeString(
             "id-ID",
             {
                 hour:"2-digit",
@@ -2109,7 +2208,7 @@ getLocalDate();
 
 
 /* ==================================================
-   START APPLICATION
+   START
 ================================================== */
 
 loadData();
